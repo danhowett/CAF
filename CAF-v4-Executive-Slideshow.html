@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CAF v4.0 — Executive Briefing</title>
+<style>
+  :root{
+    --ground:#0A1730;        /* deep navy stage */
+    --ground2:#0E1F3D;
+    --panel-bg:rgba(255,255,255,.05);
+    --panel-line:rgba(255,255,255,.12);
+    --ink:#EAF1FB;           /* primary text on navy */
+    --ink-dim:#9DB0CC;       /* secondary */
+    --faint:#63769A;
+    --accent:#4EA3FF;        /* cyan-blue, sibling of the tool's #1456CC */
+    --ach:#34D399;           /* RAG — reserved for ratings only */
+    --par:#FBBF3C;
+    --not:#F26D7D;
+    --nap:#8595AE;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:var(--ground);
+    color:var(--ink);
+    font-family:'Inter','Segoe UI',system-ui,-apple-system,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow:hidden;
+  }
+
+  /* ---------- Loader ---------- */
+  #loader{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:100;
+    background:radial-gradient(120% 120% at 50% 0%, #12305F 0%, #0A1730 60%);}
+  .drop{width:min(560px,90vw);border:1.5px dashed rgba(120,160,220,.45);border-radius:18px;padding:52px 40px;text-align:center;
+    background:rgba(255,255,255,.03);transition:border-color .2s,background .2s}
+  .drop.over{border-color:var(--accent);background:rgba(78,163,255,.08)}
+  .drop .mark{font-size:12px;letter-spacing:3px;color:var(--accent);font-weight:600;margin-bottom:22px}
+  .drop h1{font-size:26px;font-weight:700;line-height:1.2;margin-bottom:10px}
+  .drop p{color:var(--ink-dim);font-size:14px;line-height:1.6;margin-bottom:26px}
+  .drop .pick{display:inline-block;background:var(--accent);color:#04122b;font-weight:700;font-size:14px;
+    padding:12px 26px;border-radius:10px;cursor:pointer;border:none;font-family:inherit}
+  .drop .pick:hover{background:#6cb4ff}
+  .drop .hint{margin-top:18px;font-size:12px;color:var(--faint)}
+  .drop .err{margin-top:16px;color:var(--not);font-size:13px;min-height:16px}
+
+  /* ---------- Deck ---------- */
+  #deck{position:fixed;inset:0;display:none}
+  .slide{position:absolute;inset:0;display:none;flex-direction:column;
+    padding:6vh 7vw 8vh;opacity:0;transition:opacity .35s ease}
+  .slide.active{display:flex;opacity:1}
+  .slide-head{display:flex;align-items:baseline;gap:14px;margin-bottom:3.4vh}
+  .slide-kicker{font-size:13px;font-weight:600;letter-spacing:1px;color:var(--accent)}
+  .slide-title{font-size:clamp(22px,3.2vw,40px);font-weight:700;line-height:1.1}
+  .slide-sub{color:var(--ink-dim);font-size:clamp(13px,1.3vw,16px);margin-top:8px;max-width:60ch;line-height:1.55}
+
+  /* progress rail + controls */
+  .rail{position:fixed;left:7vw;right:7vw;bottom:3.4vh;height:3px;background:rgba(255,255,255,.1);border-radius:2px;z-index:20}
+  .rail-fill{height:100%;background:var(--accent);border-radius:2px;transition:width .35s ease}
+  .nav{position:fixed;bottom:calc(3.4vh + 16px);right:7vw;display:flex;align-items:center;gap:14px;z-index:21;font-size:13px;color:var(--ink-dim)}
+  .nav button{background:rgba(255,255,255,.07);border:1px solid var(--panel-line);color:var(--ink);
+    width:34px;height:34px;border-radius:9px;cursor:pointer;font-size:16px;line-height:1;transition:background .15s}
+  .nav button:hover{background:rgba(255,255,255,.15)}
+  .nav button:disabled{opacity:.3;cursor:default}
+  .nav .count{font-variant-numeric:tabular-nums;min-width:44px;text-align:center}
+  .brandmark{position:fixed;top:5vh;right:7vw;font-size:11px;letter-spacing:2px;color:var(--faint);font-weight:600;z-index:21}
+  .restart{position:fixed;top:5vh;left:7vw;font-size:11px;letter-spacing:1px;color:var(--faint);cursor:pointer;z-index:21;background:none;border:none;font-family:inherit}
+  .restart:hover{color:var(--ink-dim)}
+
+  /* ---------- Title slide ---------- */
+  .title-wrap{flex:1;display:flex;flex-direction:column;justify-content:center}
+  .title-mark{font-size:13px;letter-spacing:3px;color:var(--accent);font-weight:600;margin-bottom:20px}
+  .title-h{font-size:clamp(34px,5.4vw,68px);font-weight:800;line-height:1.04;letter-spacing:-.5px;max-width:20ch}
+  .title-org{font-size:clamp(16px,1.8vw,22px);color:var(--ink-dim);margin-top:20px}
+  .title-verdict{display:flex;align-items:center;gap:34px;margin-top:5vh;flex-wrap:wrap}
+  .verdict-ring{flex-shrink:0}
+  .verdict-txt .vt-big{font-size:clamp(30px,4vw,52px);font-weight:800;line-height:1}
+  .verdict-txt .vt-lbl{font-size:14px;letter-spacing:1px;color:var(--ink-dim);margin-top:8px;text-transform:uppercase}
+  .title-meta{display:flex;gap:36px;margin-top:5vh;flex-wrap:wrap}
+  .tm{max-width:34ch}
+  .tm .k{font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:var(--faint);margin-bottom:5px}
+  .tm .v{font-size:15px;font-weight:600;line-height:1.4}
+  .class-tag{display:inline-block;margin-top:22px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+    color:var(--ink);background:rgba(255,255,255,.09);border:1px solid var(--panel-line);border-radius:6px;padding:5px 12px}
+
+  /* ---------- Scoring slide ---------- */
+  .body{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0}
+  .score-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:20px}
+  .score-cell{background:var(--panel-bg);border:1px solid var(--panel-line);border-radius:16px;padding:30px 22px;text-align:center}
+  .score-cell .num{font-size:clamp(38px,5.5vw,64px);font-weight:800;line-height:1}
+  .score-cell .lbl{font-size:13px;color:var(--ink-dim);margin-top:12px;font-weight:500}
+  .score-note{margin-top:3.6vh;color:var(--ink-dim);font-size:14px;line-height:1.6;max-width:80ch}
+  .readiness{margin-top:3vh;display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border-radius:12px;font-size:15px;line-height:1.5}
+  .readiness.ok{background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.4)}
+  .readiness.warn{background:rgba(242,109,125,.12);border:1px solid rgba(242,109,125,.4)}
+  .readiness .rdot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+  .readiness.ok .rdot{background:var(--ach)} .readiness.warn .rdot{background:var(--not)}
+
+  /* ---------- Maturity bars ---------- */
+  .mat-list{display:flex;flex-direction:column;gap:2.6vh}
+  .mat-row{display:flex;align-items:center;gap:22px}
+  .mat-tag{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+    font-weight:800;font-size:19px;flex-shrink:0;color:#06132b}
+  .mat-name{width:min(30vw,340px);flex-shrink:0}
+  .mat-name .mn{font-size:clamp(15px,1.5vw,19px);font-weight:600}
+  .mat-name .ms{font-size:12px;color:var(--faint);margin-top:2px}
+  .mat-track{flex:1;height:26px;background:rgba(255,255,255,.07);border-radius:13px;overflow:hidden;position:relative}
+  .mat-fill{height:100%;border-radius:13px;transition:width .8s cubic-bezier(.2,.8,.2,1)}
+  .mat-pct{width:64px;text-align:right;font-size:clamp(18px,2vw,26px);font-weight:800;font-variant-numeric:tabular-nums;flex-shrink:0}
+
+  /* ---------- Radar ---------- */
+  .radar-stage{flex:1;display:flex;gap:5vw;align-items:center;min-height:0}
+  .radar-svg-wrap{flex:0 0 auto}
+  .radar-key{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:14px 34px;align-content:center}
+  .rk-obj{margin-bottom:4px}
+  .rk-obj-h{font-size:12px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;padding-bottom:5px;margin-bottom:7px;border-bottom:1px solid var(--panel-line)}
+  .rk-row{display:flex;align-items:baseline;gap:9px;font-size:13.5px;padding:2.5px 0;line-height:1.4}
+  .rk-code{font-weight:700;flex:0 0 30px;font-variant-numeric:tabular-nums}
+  .rk-name{flex:1;color:var(--ink-dim)}
+  .rk-val{font-weight:700;font-variant-numeric:tabular-nums}
+
+  /* ---------- Risk matrix ---------- */
+  .risk-stage{flex:1;display:flex;gap:4vw;align-items:center;min-height:0}
+  .matrix-wrap{flex:0 0 auto}
+  .risk-side{flex:1;min-width:0}
+  .risk-side h3{font-size:16px;font-weight:700;margin-bottom:14px;color:var(--ink)}
+  .risk-tbl{width:100%;border-collapse:collapse;font-size:13.5px}
+  .risk-tbl td{padding:7px 8px;border-bottom:1px solid rgba(255,255,255,.08)}
+  .risk-tbl .rt-ref{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .risk-tbl .rt-score{text-align:right;font-weight:800;font-variant-numeric:tabular-nums}
+  .rt-pill{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:20px}
+  .legend{display:flex;gap:20px;margin-top:18px;font-size:12.5px;color:var(--ink-dim)}
+  .legend span{display:inline-flex;align-items:center;gap:7px}
+  .legend i{width:11px;height:11px;border-radius:50%;display:inline-block}
+
+  /* ---------- Improvement priorities ---------- */
+  .imp-stage{flex:1;display:flex;flex-direction:column;justify-content:center;gap:2.4vh;min-height:0}
+  .imp-cats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .imp-cat{border-radius:14px;padding:20px;border:1px solid var(--panel-line);background:var(--panel-bg)}
+  .imp-cat .ic-n{font-size:clamp(28px,3.6vw,44px);font-weight:800;line-height:1}
+  .imp-cat .ic-l{font-size:13px;font-weight:600;margin-top:8px}
+  .imp-cat .ic-d{font-size:11.5px;color:var(--ink-dim);margin-top:6px;line-height:1.45}
+  .imp-top{display:flex;flex-direction:column;gap:10px}
+  .imp-top-h{font-size:14px;color:var(--ink-dim);margin-bottom:2px}
+  .imp-item{display:flex;align-items:center;gap:16px;background:var(--panel-bg);border:1px solid var(--panel-line);
+    border-radius:12px;padding:13px 18px}
+  .imp-rank{width:26px;height:26px;border-radius:50%;background:var(--accent);color:#04122b;font-weight:800;font-size:13px;
+    display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .imp-ref{font-weight:700;flex:0 0 46px;font-variant-numeric:tabular-nums}
+  .imp-name{flex:1;font-size:14.5px;font-weight:600}
+  .imp-act{flex:2;font-size:12.5px;color:var(--ink-dim);line-height:1.4}
+  .imp-cat-tag{font-size:10.5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:3px 9px;border-radius:5px;flex-shrink:0}
+
+  /* ---------- Closing ---------- */
+  .close-wrap{flex:1;display:flex;flex-direction:column;justify-content:center;max-width:70ch}
+  .close-wrap h2{font-size:clamp(26px,3.6vw,44px);font-weight:800;line-height:1.1;margin-bottom:24px}
+  .close-steps{display:flex;flex-direction:column;gap:16px;margin-top:1vh}
+  .close-step{display:flex;gap:16px;align-items:flex-start}
+  .cs-n{width:28px;height:28px;border-radius:8px;background:rgba(78,163,255,.16);color:var(--accent);font-weight:800;
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px}
+  .cs-t{font-size:16px;line-height:1.5}
+  .close-foot{margin-top:5vh;padding-top:20px;border-top:1px solid var(--panel-line);font-size:12px;color:var(--faint);line-height:1.6}
+
+  .cat-quickwin{background:rgba(52,211,153,.16);color:var(--ach)}
+  .cat-critical{background:rgba(242,109,125,.16);color:var(--not)}
+  .cat-strategic{background:rgba(167,139,250,.18);color:#B9A7FB}
+  .cat-foundation{background:rgba(78,163,255,.16);color:var(--accent)}
+
+  .pill-ACH{background:rgba(52,211,153,.16);color:var(--ach)}
+  .pill-PAR{background:rgba(251,191,60,.16);color:var(--par)}
+  .pill-NOT{background:rgba(242,109,125,.16);color:var(--not)}
+  .pill-NAP{background:rgba(133,149,174,.18);color:var(--nap)}
+
+  @media (max-width:820px){
+    .score-strip{grid-template-columns:repeat(2,1fr)}
+    .radar-stage,.risk-stage{flex-direction:column;gap:3vh;overflow-y:auto}
+    .radar-key,.imp-cats{grid-template-columns:1fr}
+    .mat-name{width:40vw}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ LOADER ============ -->
+<div id="loader">
+  <div class="drop" id="drop">
+    <div class="mark">◆ CYBER ASSESSMENT FRAMEWORK v4.0</div>
+    <h1>Executive Briefing</h1>
+    <p>Drop your assessment JSON here — the file exported from the CAF Assessment Tool — or choose it below. Everything runs locally in your browser; nothing is uploaded.</p>
+    <button class="pick" id="pickBtn">Choose assessment file</button>
+    <input type="file" id="fileInput" accept=".json,application/json" style="display:none">
+    <div class="hint">Tip: the JSON your tool auto-saves to disk works here too.</div>
+    <div class="err" id="loadErr"></div>
+  </div>
+</div>
+
+<!-- ============ DECK ============ -->
+<div id="deck">
+  <button class="restart" id="restartBtn" title="Load a different file">↺ New file</button>
+  <div class="brandmark">CAF v4.0 · EXECUTIVE BRIEFING</div>
+  <div id="slides"></div>
+  <div class="rail"><div class="rail-fill" id="railFill"></div></div>
+  <div class="nav">
+    <button id="prevBtn" title="Previous (←)">‹</button>
+    <span class="count" id="count">1 / 7</span>
+    <button id="nextBtn" title="Next (→)">›</button>
+  </div>
+</div>
+
+<script>
+"use strict";
+
+// ---------- Constants shared with the tool ----------
+const OBJ_COLORS = {A:'#4EA3FF', B:'#A78BFA', C:'#FBBF3C', D:'#F26D7D'};
+const OBJ_TITLES = {A:'Managing Security Risk', B:'Protecting Against Cyber Attack',
+                    C:'Detecting Cyber Security Events', D:'Minimising the Impact of Incidents'};
+const STATUS = {
+  ACH:{label:'Achieved',col:'#34D399'}, PAR:{label:'Partially Achieved',col:'#FBBF3C'},
+  NOT:{label:'Not Achieved',col:'#F26D7D'}, NAP:{label:'Not Applicable',col:'#8595AE'},
+  UNSET:{label:'Not Addressed',col:'#63769A'}
+};
+const CAT = {
+  quickwin:{label:'Quick win', desc:'Low effort, high value — do first'},
+  critical:{label:'Critical', desc:'High impact & likelihood'},
+  strategic:{label:'Strategic', desc:'High effort — plan & fund'},
+  foundation:{label:'Foundational', desc:'Routine improvement cycle'}
+};
+
+let DATA = null;
+let idx = 0;
+let slideCount = 0;
+
+// ---------- Utilities ----------
+function esc(s){ return String(s==null?'':s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
+function fmtDate(d){
+  if(!d) return '';
+  const dt=new Date(d); if(isNaN(dt)) return esc(d);
+  return dt.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+}
+function riskBand(pct){ return pct==null?'—':pct>=80?'LOW':pct>=50?'MEDIUM':pct>=25?'HIGH':'CRITICAL'; }
+function riskColor(pct){ return pct==null?'#63769A':pct>=80?'#34D399':pct>=50?'#FBBF3C':pct>=25?'#F59E42':'#F26D7D'; }
+
+// ---------- File loading ----------
+const loader=document.getElementById('loader'), drop=document.getElementById('drop'),
+      fileInput=document.getElementById('fileInput'), loadErr=document.getElementById('loadErr');
+
+document.getElementById('pickBtn').onclick=()=>fileInput.click();
+document.getElementById('restartBtn').onclick=()=>{ location.reload(); };
+fileInput.onchange=e=>{ if(e.target.files[0]) readFile(e.target.files[0]); };
+
+['dragenter','dragover'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add('over');}));
+['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('over');}));
+drop.addEventListener('drop',e=>{ const f=e.dataTransfer.files[0]; if(f) readFile(f); });
+
+function readFile(file){
+  loadErr.textContent='';
+  const r=new FileReader();
+  r.onerror=()=>{ loadErr.textContent='Could not read that file.'; };
+  r.onload=e=>{
+    let d;
+    try{ d=JSON.parse(e.target.result); }
+    catch(err){ loadErr.textContent='That is not valid JSON. Export it from the CAF tool’s "JSON" button.'; return; }
+    if(!d || !Array.isArray(d.contributingOutcomes) || !d.summary){
+      loadErr.textContent='This file isn’t a CAF assessment export. Use the JSON the tool produces.'; return;
+    }
+    if(d.framework && d.framework.version && d.framework.version!=='4.0'){
+      loadErr.textContent='This export is for CAF v'+d.framework.version+'. This briefing is for v4.0.'; return;
+    }
+    DATA=d; startDeck();
+  };
+  r.readAsText(file);
+}
+
+// ---------- SVG builders ----------
+function svgRing(pct, size, colour){
+  const r=size/2-7, c=2*Math.PI*r, dash=c*(pct||0)/100;
+  return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
+    <circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="9"/>
+    <circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="${colour}" stroke-width="9"
+      stroke-dasharray="${dash.toFixed(1)} ${c.toFixed(1)}" stroke-linecap="round"
+      transform="rotate(-90 ${size/2} ${size/2})"/>
+    <text x="50%" y="50%" text-anchor="middle" dy=".34em" fill="#fff" font-size="${size*0.27}"
+      font-weight="800" font-family="Inter,system-ui">${pct==null?'—':pct+'%'}</text>
+  </svg>`;
+}
+
+function principleData(){
+  // Derive per-principle % from the CO list (mean over rated COs in the principle)
+  const byP={};
+  DATA.contributingOutcomes.forEach(co=>{
+    if(!byP[co.principle]) byP[co.principle]={title:co.principleTitle, oId:co.objective, rated:0, pts:0};
+    if(co.rating==='ACH'||co.rating==='PAR'||co.rating==='NOT'){
+      byP[co.principle].rated++;
+      byP[co.principle].pts += co.rating==='ACH'?3:co.rating==='PAR'?2:1;
+    }
+  });
+  return Object.keys(byP).sort().map(id=>{
+    const p=byP[id];
+    return {id, title:p.title, oId:p.oId, pct:p.rated>0?Math.round(p.pts/(p.rated*3)*100):0, rated:p.rated>0};
+  });
+}
+
+function svgRadar(size){
+  const pts=principleData();
+  const n=pts.length, cx=size/2, cy=size/2, R=size/2-38;
+  const ang=i=>(Math.PI*2*i/n)-Math.PI/2;
+  const xy=(i,rad)=>[cx+Math.cos(ang(i))*rad, cy+Math.sin(ang(i))*rad];
+  let rings='';
+  [0.25,0.5,0.75,1].forEach(f=>{
+    const d=pts.map((_,i)=>{const[x,y]=xy(i,R*f);return `${x.toFixed(1)},${y.toFixed(1)}`}).join(' ');
+    rings+=`<polygon points="${d}" fill="none" stroke="rgba(255,255,255,.10)" stroke-width="1"/>`;
+  });
+  let spokes='',labels='';
+  pts.forEach((p,i)=>{
+    const[x,y]=xy(i,R);
+    spokes+=`<line x1="${cx}" y1="${cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" stroke="rgba(255,255,255,.08)" stroke-width="1"/>`;
+    const[lx,ly]=xy(i,R+16);
+    const anchor=Math.abs(lx-cx)<8?'middle':(lx>cx?'start':'end');
+    labels+=`<text x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="${anchor}" dy=".3em" font-size="12"
+      font-weight="700" fill="${OBJ_COLORS[p.oId]}" font-family="Inter,system-ui">${p.id}</text>`;
+  });
+  const poly=pts.map((p,i)=>{const[x,y]=xy(i,R*(p.pct/100));return `${x.toFixed(1)},${y.toFixed(1)}`}).join(' ');
+  let dots='';
+  pts.forEach((p,i)=>{const[x,y]=xy(i,R*(p.pct/100));dots+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.5" fill="${OBJ_COLORS[p.oId]}"/>`});
+  return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
+    ${rings}${spokes}
+    <polygon points="${poly}" fill="rgba(78,163,255,.18)" stroke="#4EA3FF" stroke-width="2"/>
+    ${dots}${labels}
+  </svg>`;
+}
+
+function svgMatrix(size){
+  const rated=DATA.contributingOutcomes.filter(c=>['ACH','PAR','NOT'].includes(c.rating));
+  const cell=(size-70)/5, ox=58, oy=8, gap=4;
+  const band=(l,i)=>{const s=l+i; return s<=3?'#12351f':s<=5?'#3a3417':s<=7?'#3d2417':'#3a1a20';};
+  const likLabels=['','V.Low','Low','Med','High','V.High'], impLabels=['','Minimal','Minor','Moderate','Major','Critical'];
+  const grid={}; for(let l=1;l<=5;l++)for(let i=1;i<=5;i++)grid[l+'_'+i]=[];
+  rated.forEach(c=>{
+    const l=Math.max(1,Math.min(5,c.likelihood||3)), i=Math.max(1,Math.min(5,c.impact||3));
+    grid[l+'_'+i].push(c);
+  });
+  const W=ox+cell*5+gap*4+8, H=oy+cell*5+gap*4+34;
+  let s=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">`;
+  for(let l=5;l>=1;l--){
+    const row=5-l, y=oy+row*(cell+gap);
+    s+=`<text x="${ox-10}" y="${y+cell/2}" text-anchor="end" dy=".3em" font-size="11" fill="#9DB0CC" font-family="Inter,system-ui">${likLabels[l]}</text>`;
+    for(let i=1;i<=5;i++){
+      const x=ox+(i-1)*(cell+gap);
+      s+=`<rect x="${x}" y="${y}" width="${cell}" height="${cell}" rx="7" fill="${band(l,i)}" stroke="rgba(255,255,255,.08)"/>`;
+      const cos=grid[l+'_'+i];
+      if(cos.length){
+        const per=Math.ceil(Math.sqrt(cos.length));
+        cos.forEach((co,k)=>{
+          const bx=x+cell/2+((k%per)-(per-1)/2)*17;
+          const by=y+cell/2+(Math.floor(k/per)-(Math.ceil(cos.length/per)-1)/2)*17;
+          const col=STATUS[co.rating].col;
+          s+=`<circle cx="${bx.toFixed(1)}" cy="${by.toFixed(1)}" r="8" fill="${col}"/>`;
+          s+=`<text x="${bx.toFixed(1)}" y="${by.toFixed(1)}" text-anchor="middle" dy=".3em" font-size="6.5"
+             fill="#06132b" font-weight="800" font-family="Inter,system-ui">${co.ref}</text>`;
+        });
+      }
+    }
+  }
+  for(let i=1;i<=5;i++){
+    const x=ox+(i-1)*(cell+gap)+cell/2;
+    s+=`<text x="${x}" y="${oy+cell*5+gap*4+18}" text-anchor="middle" font-size="11" fill="#9DB0CC" font-family="Inter,system-ui">${impLabels[i]}</text>`;
+  }
+  s+=`<text x="${ox+(cell*5+gap*4)/2}" y="${H-2}" text-anchor="middle" font-size="11.5" font-weight="700" fill="#EAF1FB" font-family="Inter,system-ui">IMPACT →</text>`;
+  s+=`</svg>`;
+  return s;
+}
+
+// ---------- Slides ----------
+function slideTitle(){
+  const a=DATA.assessment||{}, sm=DATA.summary, comp=DATA.completeness||{};
+  const pct=sm.overallPercent;
+  const meta=[];
+  if(a.essentialFunction) meta.push(['Essential function in scope', a.essentialFunction]);
+  if(a.cafProfile) meta.push(['CAF Profile', a.cafProfile]);
+  if(a.leadAssessor) meta.push(['Assessment lead', a.leadAssessor]);
+  if(a.date) meta.push(['Date', fmtDate(a.date)]);
+  return `<div class="slide" data-i="0">
+    <div class="title-wrap">
+      <div class="title-mark">◆ NCSC CYBER ASSESSMENT FRAMEWORK v4.0</div>
+      <div class="title-h">Cyber Resilience<br>Executive Briefing</div>
+      <div class="title-org">${esc(a.organisation||'Organisation not specified')}</div>
+      ${a.classification?`<div><span class="class-tag">${esc(a.classification)}</span></div>`:''}
+      <div class="title-verdict">
+        <div class="verdict-ring">${svgRing(pct,150,riskColor(pct))}</div>
+        <div class="verdict-txt">
+          <div class="vt-big">${pct==null?'Not yet rated':riskBand(pct)+' risk'}</div>
+          <div class="vt-lbl">${comp.addressed!=null?comp.addressed+' of 41 outcomes addressed':''}</div>
+        </div>
+      </div>
+      <div class="title-meta">
+        ${meta.map(([k,v])=>`<div class="tm"><div class="k">${esc(k)}</div><div class="v">${esc(v)}</div></div>`).join('')}
+      </div>
+    </div>
+  </div>`;
+}
+
+function slideScoring(){
+  const sm=DATA.summary, comp=DATA.completeness||{};
+  const cells=[
+    ['ACH', sm.achieved, 'Achieved'],
+    ['PAR', sm.partiallyAchieved, 'Partially'],
+    ['NOT', sm.notAchieved, 'Not Achieved'],
+    ['NAP', sm.notApplicable, 'Not Applicable'],
+    ['UNSET', sm.notAddressed, 'Not Addressed'],
+  ];
+  const ready=comp.readyForSubmission;
+  let readiness;
+  if(ready){
+    readiness=`<div class="readiness ok"><span class="rdot"></span>All 41 outcomes explicitly addressed — ${sm.rated} rated, ${sm.notApplicable} justified as not applicable.</div>`;
+  } else {
+    const bits=[];
+    if(comp.outstanding && comp.outstanding.length) bits.push(`${comp.outstanding.length} not yet addressed`);
+    if(comp.unjustifiedNotApplicable && comp.unjustifiedNotApplicable.length) bits.push(`${comp.unjustifiedNotApplicable.length} N/A without justification`);
+    readiness=`<div class="readiness warn"><span class="rdot"></span>Assessment in progress — ${bits.join(' · ')||'items outstanding'}.</div>`;
+  }
+  return `<div class="slide" data-i="1">
+    <div class="slide-head"><div><div class="slide-kicker">01 · WHERE WE STAND</div>
+      <div class="slide-title">Outcome scoring</div>
+      <div class="slide-sub">How the 41 contributing outcomes are currently rated across the framework.</div></div></div>
+    <div class="body">
+      <div class="score-strip">
+        ${cells.map(([k,n,l])=>`<div class="score-cell"><div class="num" style="color:${STATUS[k].col}">${n||0}</div><div class="lbl">${l}</div></div>`).join('')}
+      </div>
+      ${readiness}
+      <div class="score-note">Maturity is measured over rated outcomes only. Outcomes justified as <strong>Not Applicable</strong> are excluded from the score rather than counted as failures; anything <strong>Not Addressed</strong> is still outstanding and must be resolved before submission.</div>
+    </div>
+  </div>`;
+}
+
+function slideMaturity(){
+  const objs=DATA.summary.byObjective;
+  return `<div class="slide" data-i="2">
+    <div class="slide-head"><div><div class="slide-kicker">02 · THE SHAPE OF IT</div>
+      <div class="slide-title">Maturity by objective</div>
+      <div class="slide-sub">The four CAF objectives, scored over their rated outcomes. Longer bars are stronger.</div></div></div>
+    <div class="body"><div class="mat-list">
+      ${objs.map(o=>{
+        const pct=o.percent, col=OBJ_COLORS[o.id];
+        return `<div class="mat-row">
+          <div class="mat-tag" style="background:${col}">${o.id}</div>
+          <div class="mat-name"><div class="mn">${esc(o.title)}</div>
+            <div class="ms">${o.rated} rated${o.notApplicable?` · ${o.notApplicable} N/A`:''}${o.notAddressed?` · ${o.notAddressed} blank`:''}</div></div>
+          <div class="mat-track"><div class="mat-fill" style="width:0%" data-w="${pct||0}" data-col="${col}"></div></div>
+          <div class="mat-pct" style="color:${col}">${pct==null?'—':pct+'%'}</div>
+        </div>`;
+      }).join('')}
+    </div></div>
+  </div>`;
+}
+
+function slideRadar(){
+  const pts=principleData();
+  const byObj={A:[],B:[],C:[],D:[]};
+  pts.forEach(p=>byObj[p.oId].push(p));
+  const key=Object.keys(byObj).map(oId=>`
+    <div class="rk-obj">
+      <div class="rk-obj-h" style="color:${OBJ_COLORS[oId]}">Objective ${oId}</div>
+      ${byObj[oId].map(p=>`<div class="rk-row">
+        <span class="rk-code" style="color:${OBJ_COLORS[oId]}">${p.id}</span>
+        <span class="rk-name">${esc(p.title)}</span>
+        <span class="rk-val" style="color:${riskColor(p.rated?p.pct:null)}">${p.rated?p.pct+'%':'—'}</span>
+      </div>`).join('')}
+    </div>`).join('');
+  return `<div class="slide" data-i="3">
+    <div class="slide-head"><div><div class="slide-kicker">03 · STRENGTHS & GAPS</div>
+      <div class="slide-title">Security principle profile</div>
+      <div class="slide-sub">All 14 principles at a glance. Points nearer the edge are stronger; the dents show where to focus.</div></div></div>
+    <div class="radar-stage">
+      <div class="radar-svg-wrap">${svgRadar(360)}</div>
+      <div class="radar-key">${key}</div>
+    </div>
+  </div>`;
+}
+
+function slideRisk(){
+  const top=DATA.contributingOutcomes
+    .filter(c=>c.rating==='NOT'||c.rating==='PAR')
+    .map(c=>({...c, rs:c.riskScore!=null?c.riskScore:(c.impact*c.likelihood*(c.rating==='NOT'?1:0.5))}))
+    .sort((a,b)=>b.rs-a.rs).slice(0,7);
+  return `<div class="slide" data-i="4">
+    <div class="slide-head"><div><div class="slide-kicker">04 · WHAT COULD HURT US</div>
+      <div class="slide-title">Risk matrix</div>
+      <div class="slide-sub">Each rated outcome placed by potential impact against current likelihood. Not-applicable and unaddressed outcomes are not plotted.</div></div></div>
+    <div class="risk-stage">
+      <div class="matrix-wrap">${svgMatrix(360)}
+        <div class="legend">
+          <span><i style="background:${STATUS.NOT.col}"></i>Not Achieved</span>
+          <span><i style="background:${STATUS.PAR.col}"></i>Partially</span>
+          <span><i style="background:${STATUS.ACH.col}"></i>Achieved</span>
+        </div>
+      </div>
+      <div class="risk-side">
+        <h3>Highest residual risks</h3>
+        <table class="risk-tbl"><tbody>
+          ${top.map(c=>`<tr>
+            <td class="rt-ref" style="color:${OBJ_COLORS[c.objective]}">${c.ref}</td>
+            <td>${esc(c.name)}</td>
+            <td><span class="rt-pill pill-${c.rating}">${STATUS[c.rating].label}</span></td>
+            <td class="rt-score">${(c.rs).toFixed ? c.rs.toFixed(1).replace(/\.0$/,'') : c.rs}</td>
+          </tr>`).join('')}
+        </tbody></table>
+      </div>
+    </div>
+  </div>`;
+}
+
+function slideImprove(){
+  const plan=DATA.summary.improvementPlan||[];
+  const counts={quickwin:0,critical:0,strategic:0,foundation:0};
+  plan.forEach(p=>{counts[p.category]=(counts[p.category]||0)+1;});
+  const order=['critical','quickwin','strategic','foundation'];
+  const top=plan.slice(0,4);
+  return `<div class="slide" data-i="5">
+    <div class="slide-head"><div><div class="slide-kicker">05 · WHERE TO ACT</div>
+      <div class="slide-title">Improvement priorities</div>
+      <div class="slide-sub">Gaps ranked by risk reduction against effort: (impact × likelihood × gap severity) ÷ effort.</div></div></div>
+    <div class="imp-stage">
+      <div class="imp-cats">
+        ${order.map(k=>`<div class="imp-cat">
+          <div class="ic-n" style="color:${k==='critical'?STATUS.NOT.col:k==='quickwin'?STATUS.ACH.col:k==='strategic'?'#B9A7FB':'#4EA3FF'}">${counts[k]||0}</div>
+          <div class="ic-l">${CAT[k].label}</div>
+          <div class="ic-d">${CAT[k].desc}</div>
+        </div>`).join('')}
+      </div>
+      <div class="imp-top">
+        <div class="imp-top-h">Top priorities to brief</div>
+        ${top.map((p,i)=>`<div class="imp-item">
+          <div class="imp-rank">${i+1}</div>
+          <div class="imp-ref" style="color:${OBJ_COLORS[p.objective]}">${p.ref}</div>
+          <div class="imp-name">${esc(p.name)}</div>
+          <div class="imp-act">${esc(p.action||'')}</div>
+          <div class="imp-cat-tag cat-${p.category}">${CAT[p.category].label}</div>
+        </div>`).join('')}
+      </div>
+    </div>
+  </div>`;
+}
+
+function slideClose(){
+  const a=DATA.assessment||{}, comp=DATA.completeness||{};
+  const steps=[];
+  if(comp.outstanding && comp.outstanding.length)
+    steps.push(`Complete the ${comp.outstanding.length} outstanding outcome${comp.outstanding.length===1?'':'s'} so the assessment is submission-ready.`);
+  if(comp.unjustifiedNotApplicable && comp.unjustifiedNotApplicable.length)
+    steps.push(`Add written justification for the ${comp.unjustifiedNotApplicable.length} outcome${comp.unjustifiedNotApplicable.length===1?'':'s'} marked Not Applicable.`);
+  steps.push('Agree ownership and timelines for the priority improvements, starting with the critical items and quick wins.');
+  steps.push('Confirm target levels for each outcome against the CAF Profile set by the Competent Authority.');
+  steps.push('Re-assess after remediation and track maturity over time.');
+  return `<div class="slide" data-i="6">
+    <div class="close-wrap">
+      <div class="slide-kicker">06 · NEXT STEPS</div>
+      <h2>What we’re asking the board to endorse</h2>
+      <div class="close-steps">
+        ${steps.map((t,i)=>`<div class="close-step"><div class="cs-n">${i+1}</div><div class="cs-t">${esc(t)}</div></div>`).join('')}
+      </div>
+      <div class="close-foot">
+        ${esc(a.organisation||'')}${a.assessmentPeriod?' · '+esc(a.assessmentPeriod):''}${a.version?' · '+esc(a.version):''}<br>
+        Assessed against the NCSC Cyber Assessment Framework v4.0. This briefing summarises a self-assessment and does not constitute a regulatory determination. CAF content © Crown copyright 2025, reproduced under the Open Government Licence v3.0.
+      </div>
+    </div>
+  </div>`;
+}
+
+// ---------- Deck control ----------
+function startDeck(){
+  const slides=[slideTitle(),slideScoring(),slideMaturity(),slideRadar(),slideRisk(),slideImprove(),slideClose()];
+  slideCount=slides.length;
+  document.getElementById('slides').innerHTML=slides.join('');
+  loader.style.display='none';
+  document.getElementById('deck').style.display='block';
+  idx=0; show(0);
+}
+
+function show(n){
+  const nodes=document.querySelectorAll('.slide');
+  idx=Math.max(0,Math.min(slideCount-1,n));
+  nodes.forEach((s,i)=>s.classList.toggle('active', i===idx));
+  document.getElementById('count').textContent=(idx+1)+' / '+slideCount;
+  document.getElementById('railFill').style.width=((idx+1)/slideCount*100)+'%';
+  document.getElementById('prevBtn').disabled=idx===0;
+  document.getElementById('nextBtn').disabled=idx===slideCount-1;
+  // animate maturity bars when that slide appears
+  if(nodes[idx]){
+    nodes[idx].querySelectorAll('.mat-fill').forEach(f=>{
+      requestAnimationFrame(()=>{ f.style.width=(f.dataset.w||0)+'%'; f.style.background=f.dataset.col; });
+    });
+  }
+}
+function nextS(){ show(idx+1); }
+function prevS(){ show(idx-1); }
+
+document.getElementById('nextBtn').onclick=nextS;
+document.getElementById('prevBtn').onclick=prevS;
+document.addEventListener('keydown',e=>{
+  if(document.getElementById('deck').style.display==='none') return;
+  if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){e.preventDefault();nextS();}
+  else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();prevS();}
+  else if(e.key==='Home'){show(0);}
+  else if(e.key==='End'){show(slideCount-1);}
+  else if(e.key==='f'||e.key==='F'){ if(!document.fullscreenElement) document.documentElement.requestFullscreen(); else document.exitFullscreen(); }
+});
+</script>
+</body>
+</html>
