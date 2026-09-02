@@ -1,13 +1,15 @@
 # NCSC CAF v4.0 Assessment Toolkit
 
-A pair of self-contained, offline HTML tools for carrying out and presenting an assessment against the UK National Cyber Security Centre's [Cyber Assessment Framework (CAF) version 4.0](https://www.ncsc.gov.uk/collection/cyber-assessment-framework).
+A pair of self-contained, offline HTML tools for carrying out and presenting a self-assessment against the UK National Cyber Security Centre's [Cyber Assessment Framework (CAF) version 4.0](https://www.ncsc.gov.uk/collection/cyber-assessment-framework).
 
 - **Assessment Tool** — score all 41 contributing outcomes, record evidence and justifications, and generate a full print-ready PDF report.
 - **Executive Briefing** — a boardroom slide deck generated from the tool's export, for presenting the outcome to senior stakeholders.
 
 Both are single HTML files. There is no build step, no server, no dependencies and no network calls — open them in a browser and everything runs locally. Nothing you enter ever leaves your machine.
 
-> **Disclaimer.** These tools support assessment but do not constitute a regulatory determination. Target levels for each outcome are set by your relevant regulator or Competent Authority. Always confirm your requirements against the official CAF and your sector profile.
+> **Disclaimer.** These tools support *self-assessment* and do not constitute a regulatory determination. Target levels for each outcome are set by your relevant regulator or Competent Authority. Always confirm your requirements against the official CAF and your sector profile.
+
+![The CAF v4.0 Assessment Tool dashboard](docs/screenshot-tool.png)
 
 ---
 
@@ -80,6 +82,8 @@ Captures the context that a reviewer or Competent Authority expects, all optiona
 7. **Not Applicable register** — every N/A declaration with its justification.
 8. **Contributing outcome detail** — all 41 outcomes with ratings and recorded evidence.
 
+![The generated PDF report — cover and executive summary](docs/screenshot-report.png)
+
 ### Sample data
 
 The **Sample** button (top-right of the top bar) populates a realistic, fictional water-sector OT assessment so you can see every feature — including a mix of all rating states, justified N/A entries and one deliberately left blank to demonstrate validation.
@@ -118,6 +122,8 @@ On-screen arrows and a progress rail are also provided.
 5. **Risk matrix** — impact vs likelihood, with the highest residual risks.
 6. **Improvement priorities** — category counts and the top gaps to brief.
 7. **Next steps** — recommended actions, adapted to the assessment's state.
+
+![The Executive Briefing slide deck](docs/screenshot-slideshow.png)
 
 The briefing is view-only and always renders these seven slides; it does not edit the underlying assessment.
 
@@ -280,10 +286,14 @@ Built with standard HTML, CSS and vanilla JavaScript — no frameworks.
 ├── NCSC-CAF-v4-Assessment-Tool.html   # the assessment workspace + report
 ├── CAF-v4-Executive-Slideshow.html    # the briefing deck (loads exported JSON)
 ├── CAF-v4-SAMPLE-export.json          # a sample export to try the briefing with
+├── docs/
+│   ├── screenshot-tool.png            # dashboard (shown at the top of this README)
+│   ├── screenshot-report.png          # the generated PDF report
+│   └── screenshot-slideshow.png       # the executive briefing deck
 └── README.md
 ```
 
-> This repository tracks a single current version of each file. If you keep dated or numbered builds, record changes here or in a `CHANGELOG`.
+> The README embeds three screenshots from `docs/`. Add your own PNGs at those paths (or update the image links) so they render on GitHub.
 
 ---
 
