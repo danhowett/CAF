@@ -1,13 +1,13 @@
 # NCSC CAF v4.0 Assessment Toolkit
 
-A pair of self-contained, offline HTML tools for carrying out and presenting a self-assessment against the UK National Cyber Security Centre's [Cyber Assessment Framework (CAF) version 4.0](https://www.ncsc.gov.uk/collection/cyber-assessment-framework).
+A pair of self-contained, offline HTML tools for carrying out and presenting an assessment against the UK National Cyber Security Centre's [Cyber Assessment Framework (CAF) version 4.0](https://www.ncsc.gov.uk/collection/cyber-assessment-framework).
 
 - **Assessment Tool** — score all 41 contributing outcomes, record evidence and justifications, and generate a full print-ready PDF report.
 - **Executive Briefing** — a boardroom slide deck generated from the tool's export, for presenting the outcome to senior stakeholders.
 
 Both are single HTML files. There is no build step, no server, no dependencies and no network calls — open them in a browser and everything runs locally. Nothing you enter ever leaves your machine.
 
-> **Disclaimer.** These tools support *self-assessment* and do not constitute a regulatory determination. Target levels for each outcome are set by your relevant regulator or Competent Authority. Always confirm your requirements against the official CAF and your sector profile.
+> **Disclaimer.** These tools support assessment but do not constitute a regulatory determination. Target levels for each outcome are set by your relevant regulator or Competent Authority. Always confirm your requirements against the official CAF and your sector profile.
 
 ---
 
