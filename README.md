@@ -301,6 +301,4 @@ Built with standard HTML, CSS and vanilla JavaScript — no frameworks.
 
 The CAF itself is Crown copyright: **CAF content © Crown copyright 2025, reproduced under the [Open Government Licence v3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/).** The Open Government Licence version (v3.0) is unrelated to the CAF framework version (v4.0).
 
-Add your own licence for the toolkit code in a `LICENSE` file and reference it here (for example, MIT for a permissive open-source release). Until then, no code licence is granted by default.
-
 The official framework is published by the NCSC: <https://www.ncsc.gov.uk/collection/cyber-assessment-framework>
