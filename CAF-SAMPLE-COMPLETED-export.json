@@ -1,0 +1,3448 @@
+{
+  "schemaVersion": 1,
+  "framework": {
+    "name": "NCSC Cyber Assessment Framework",
+    "version": "4.0",
+    "published": "2025-08-06",
+    "objectives": 4,
+    "principles": 14,
+    "contributingOutcomes": 41,
+    "source": "https://www.ncsc.gov.uk/collection/cyber-assessment-framework",
+    "licence": "CAF content © Crown copyright 2025, reproduced under the Open Government Licence v3.0. Framework assessed: NCSC CAF v4.0."
+  },
+  "assessment": {
+    "organisation": "Wessex Water Alliance (SAMPLE — completed)",
+    "leadAssessor": "A. Demo, Principal Consultant",
+    "date": "2026-08-14",
+    "essentialFunction": "Water treatment & distribution — \"Marlow\" SCADA/OT environment",
+    "cafProfile": "Enhanced (DWI competent authority)",
+    "inScopeSystems": "Marlow SCADA/OT network; primary & standby control servers; engineering workstations; process historian; IT/OT boundary firewalls",
+    "sector": "Water",
+    "competentAuthority": "Drinking Water Inspectorate (DWI)",
+    "qcReviewer": "R. Stone, Technical Assurance",
+    "teamMembers": "J. Okafor (OT security)\nL. Marsh (governance & policy)\nS. Idris (detection & response)",
+    "clientOwner": "M. Chen, Head of Operational Technology",
+    "seniorResponsibleOwner": "D. Whitfield, CISO",
+    "assessmentPeriod": "1–14 August 2026",
+    "evidenceLocation": "GRC platform › CAF 2026 › Marlow; evidence pack ref EVP-2026-014",
+    "method": "Interviews with system owners, documentation review, and configuration inspection of in-scope OT assets. Ratings reflect assessor judgement against CAF v4.0 IGPs. Live exploit testing was out of scope for the OT environment.",
+    "version": "v1.0 DRAFT",
+    "classification": "OFFICIAL-SENSITIVE",
+    "reportType": "Independent Assessment",
+    "reportFooter": "Independent assessment conducted by A. Demo, Principal Consultant. This is NOT a self-assessment. Findings are advisory and point-in-time as at 14 Aug 2026.",
+    "exportedAt": "2026-10-26T17:07:27.452Z"
+  },
+  "completeness": {
+    "addressed": 41,
+    "outstanding": [],
+    "unjustifiedNotApplicable": [],
+    "readyForSubmission": true
+  },
+  "summary": {
+    "note": "Maturity percentages are calculated over rated outcomes only (Achieved / Partially Achieved / Not Achieved). Outcomes justified as Not Applicable are excluded from the denominator. Outcomes not yet addressed are excluded and flagged under completeness.",
+    "overallPercent": 65,
+    "rated": 39,
+    "achieved": 10,
+    "partiallyAchieved": 17,
+    "notAchieved": 12,
+    "notApplicable": 2,
+    "notAddressed": 0,
+    "profileCompliance": {
+      "targeted": 40,
+      "met": 15,
+      "gaps": 25,
+      "percent": 38,
+      "gapRefs": [
+        "A1.c",
+        "A2.a",
+        "A2.b",
+        "A2.c",
+        "A4.a",
+        "A4.b",
+        "B1.a",
+        "B2.b",
+        "B2.c",
+        "B2.d",
+        "B3.b",
+        "B4.a",
+        "B4.b",
+        "B4.c",
+        "B5.a",
+        "B6.a",
+        "B6.b",
+        "C1.a",
+        "C1.b",
+        "C1.c",
+        "C1.d",
+        "C1.f",
+        "D1.a",
+        "D1.b",
+        "D1.c"
+      ],
+      "byObjective": [
+        {
+          "id": "A",
+          "title": "Managing Security Risk",
+          "targeted": 9,
+          "met": 3,
+          "gaps": 6,
+          "percent": 33
+        },
+        {
+          "id": "B",
+          "title": "Protecting Against Cyber Attack",
+          "targeted": 20,
+          "met": 9,
+          "gaps": 11,
+          "percent": 45
+        },
+        {
+          "id": "C",
+          "title": "Detecting Cyber Security Events",
+          "targeted": 6,
+          "met": 1,
+          "gaps": 5,
+          "percent": 17
+        },
+        {
+          "id": "D",
+          "title": "Minimising Impact of Cyber Security Incidents",
+          "targeted": 5,
+          "met": 2,
+          "gaps": 3,
+          "percent": 40
+        }
+      ]
+    },
+    "byObjective": [
+      {
+        "id": "A",
+        "title": "Managing Security Risk",
+        "percent": 67,
+        "rated": 9,
+        "notApplicable": 0,
+        "notAddressed": 0
+      },
+      {
+        "id": "B",
+        "title": "Protecting Against Cyber Attack",
+        "percent": 72,
+        "rated": 19,
+        "notApplicable": 1,
+        "notAddressed": 0
+      },
+      {
+        "id": "C",
+        "title": "Detecting Cyber Security Events",
+        "percent": 48,
+        "rated": 7,
+        "notApplicable": 0,
+        "notAddressed": 0
+      },
+      {
+        "id": "D",
+        "title": "Minimising Impact of Cyber Security Incidents",
+        "percent": 58,
+        "rated": 4,
+        "notApplicable": 1,
+        "notAddressed": 0
+      }
+    ],
+    "improvementPlan": [
+      {
+        "ref": "B2.c",
+        "objective": "B",
+        "name": "Privileged User Management",
+        "rating": "NOT",
+        "impact": 5,
+        "likelihood": 5,
+        "effort": 3,
+        "priority": 16.7,
+        "category": "critical",
+        "action": "Establish periodic access re-certification for OT accounts; implement just-in-time privileged access."
+      },
+      {
+        "ref": "C1.c",
+        "objective": "C",
+        "name": "Generating Alerts",
+        "rating": "NOT",
+        "impact": 5,
+        "likelihood": 4,
+        "effort": 3,
+        "priority": 13.3,
+        "category": "critical",
+        "action": "Deploy OT-specific detection use cases; tune rules to reduce false positives; test alerting."
+      },
+      {
+        "ref": "C1.d",
+        "objective": "C",
+        "name": "Triage of Security Alerts",
+        "rating": "NOT",
+        "impact": 5,
+        "likelihood": 4,
+        "effort": 3,
+        "priority": 13.3,
+        "category": "critical",
+        "action": "Build OT alert context into triage runbooks; document triage; use findings to drive improvement."
+      },
+      {
+        "ref": "B4.b",
+        "objective": "B",
+        "name": "Secure Configuration",
+        "rating": "NOT",
+        "impact": 4,
+        "likelihood": 4,
+        "effort": 3,
+        "priority": 10.7,
+        "category": "critical",
+        "action": "Extend vulnerability scanning to the OT segment (passive where active is unsafe); remove default credentials."
+      },
+      {
+        "ref": "B5.c",
+        "objective": "B",
+        "name": "Backups",
+        "rating": "PAR",
+        "impact": 5,
+        "likelihood": 4,
+        "effort": 2,
+        "priority": 10,
+        "category": "quickwin",
+        "action": "Implement a 3-2-1 backup strategy; rehearse OT configuration restores; air-gap critical backups."
+      },
+      {
+        "ref": "D1.b",
+        "objective": "D",
+        "name": "Response and Recovery Capability",
+        "rating": "NOT",
+        "impact": 5,
+        "likelihood": 3,
+        "effort": 3,
+        "priority": 10,
+        "category": "foundation",
+        "action": "Confirm response resources and decision authority; duplicate key roles; test back-up activation; retain external IR support on standby."
+      },
+      {
+        "ref": "B6.b",
+        "objective": "B",
+        "name": "Cyber Security Training",
+        "rating": "NOT",
+        "impact": 3,
+        "likelihood": 3,
+        "effort": 2,
+        "priority": 9,
+        "category": "quickwin",
+        "action": "Deploy role-based training for OT engineers on secure operations; include phishing simulation; track completion."
+      },
+      {
+        "ref": "A1.c",
+        "objective": "A",
+        "name": "Decision-making",
+        "rating": "NOT",
+        "impact": 4,
+        "likelihood": 2,
+        "effort": 2,
+        "priority": 8,
+        "category": "quickwin",
+        "action": "Establish risk appetite statement; implement risk-based decision framework for OT/IT."
+      },
+      {
+        "ref": "C1.f",
+        "objective": "C",
+        "name": "Understanding User's and System's Behaviour, and Threat Intelligence",
+        "rating": "NOT",
+        "impact": 4,
+        "likelihood": 4,
+        "effort": 4,
+        "priority": 8,
+        "category": "critical",
+        "action": "Baseline OT traffic behaviour; correlate threat intelligence to in-scope assets."
+      },
+      {
+        "ref": "D1.c",
+        "objective": "D",
+        "name": "Testing and Exercising",
+        "rating": "NOT",
+        "impact": 4,
+        "likelihood": 2,
+        "effort": 2,
+        "priority": 8,
+        "category": "quickwin",
+        "action": "Run regular exercises drawing on threat intelligence and past incidents; test the full response cycle including restoration; feed findings into lessons learned."
+      },
+      {
+        "ref": "D1.a",
+        "objective": "D",
+        "name": "Response Plan",
+        "rating": "PAR",
+        "impact": 5,
+        "likelihood": 3,
+        "effort": 2,
+        "priority": 7.5,
+        "category": "quickwin",
+        "action": "Develop and test an incident response plan grounded in risk assessment; cover known and novel attack patterns; integrate supply-chain scenarios."
+      },
+      {
+        "ref": "C1.a",
+        "objective": "C",
+        "name": "Sources and Tools for Logging and Monitoring",
+        "rating": "PAR",
+        "impact": 5,
+        "likelihood": 4,
+        "effort": 3,
+        "priority": 6.7,
+        "category": "critical",
+        "action": "Extend logging to OT sources including PLC events; ensure coverage supports timely detection."
+      },
+      {
+        "ref": "A4.b",
+        "objective": "A",
+        "name": "Secure Software Development and Support",
+        "rating": "NOT",
+        "impact": 4,
+        "likelihood": 4,
+        "effort": 5,
+        "priority": 6.4,
+        "category": "critical",
+        "action": "Impose secure development requirements on software suppliers; require SBOM and NIST SSDF / SDL evidence."
+      },
+      {
+        "ref": "B1.b",
+        "objective": "B",
+        "name": "Policy, Process and Procedure Implementation",
+        "rating": "PAR",
+        "impact": 4,
+        "likelihood": 3,
+        "effort": 2,
+        "priority": 6,
+        "category": "quickwin",
+        "action": "Implement policy compliance monitoring; extend coverage to the OT estate; integrate into assurance."
+      },
+      {
+        "ref": "C1.b",
+        "objective": "C",
+        "name": "Securing Logs",
+        "rating": "PAR",
+        "impact": 4,
+        "likelihood": 3,
+        "effort": 2,
+        "priority": 6,
+        "category": "quickwin",
+        "action": "Centralise log collection; protect log integrity; hold logs for a suitable retention period."
+      },
+      {
+        "ref": "B2.d",
+        "objective": "B",
+        "name": "Identity and Access Management (IdAM)",
+        "rating": "PAR",
+        "impact": 4,
+        "likelihood": 4,
+        "effort": 3,
+        "priority": 5.3,
+        "category": "critical",
+        "action": "Conduct access rights review; authenticate field devices; automate the joiners/movers/leavers process."
+      },
+      {
+        "ref": "B3.b",
+        "objective": "B",
+        "name": "Data in Transit",
+        "rating": "PAR",
+        "impact": 4,
+        "likelihood": 4,
+        "effort": 3,
+        "priority": 5.3,
+        "category": "critical",
+        "action": "Audit data-in-transit protection; deploy TLS across the IT/OT boundary; document residual cleartext by design."
+      },
+      {
+        "ref": "A2.a",
+        "objective": "A",
+        "name": "Risk Management Process",
+        "rating": "PAR",
+        "impact": 5,
+        "likelihood": 3,
+        "effort": 3,
+        "priority": 5,
+        "category": "foundation",
+        "action": "Implement formal risk management process with regular review cycles at system level."
+      },
+      {
+        "ref": "C2.a",
+        "objective": "C",
+        "name": "Threat Hunting",
+        "rating": "NOT",
+        "impact": 4,
+        "likelihood": 3,
+        "effort": 5,
+        "priority": 4.8,
+        "category": "strategic",
+        "action": "Establish a threat-hunting programme for the OT environment; adopt a structured methodology; train hunters."
+      },
+      {
+        "ref": "B6.a",
+        "objective": "B",
+        "name": "Cyber Security Culture",
+        "rating": "PAR",
+        "impact": 3,
+        "likelihood": 3,
+        "effort": 2,
+        "priority": 4.5,
+        "category": "quickwin",
+        "action": "Run a security awareness programme; embed security in culture; deliver leadership messaging."
+      },
+      {
+        "ref": "A2.c",
+        "objective": "A",
+        "name": "Assurance",
+        "rating": "NOT",
+        "impact": 3,
+        "likelihood": 2,
+        "effort": 3,
+        "priority": 4,
+        "category": "foundation",
+        "action": "Define assurance programme; conduct penetration testing and independent reviews of the risk methodology."
+      },
+      {
+        "ref": "A4.a",
+        "objective": "A",
+        "name": "Supply Chain",
+        "rating": "PAR",
+        "impact": 4,
+        "likelihood": 4,
+        "effort": 4,
+        "priority": 4,
+        "category": "critical",
+        "action": "Conduct supply chain review; add security clauses to contracts; assess fourth-party risk."
+      },
+      {
+        "ref": "B2.b",
+        "objective": "B",
+        "name": "Device Management",
+        "rating": "PAR",
+        "impact": 4,
+        "likelihood": 3,
+        "effort": 3,
+        "priority": 4,
+        "category": "foundation",
+        "action": "Implement certificate-based device management; retire shared local accounts on legacy HMIs."
+      },
+      {
+        "ref": "B4.a",
+        "objective": "B",
+        "name": "Secure by Design",
+        "rating": "PAR",
+        "impact": 5,
+        "likelihood": 4,
+        "effort": 5,
+        "priority": 4,
+        "category": "critical",
+        "action": "Define and formalise a secure baseline for engineering hosts and PLC/RTU devices; minimise attack surface."
+      },
+      {
+        "ref": "B4.c",
+        "objective": "B",
+        "name": "Secure Management",
+        "rating": "PAR",
+        "impact": 4,
+        "likelihood": 3,
+        "effort": 3,
+        "priority": 4,
+        "category": "foundation",
+        "action": "Constrain OT patch windows to vendor-supported releases; establish change management and patch SLAs."
+      },
+      {
+        "ref": "B5.a",
+        "objective": "B",
+        "name": "Resilience Preparation",
+        "rating": "PAR",
+        "impact": 4,
+        "likelihood": 3,
+        "effort": 3,
+        "priority": 4,
+        "category": "foundation",
+        "action": "Define OT-specific RTO/RPO; test BCP/DR plans; document recovery procedures for the essential function."
+      },
+      {
+        "ref": "A2.b",
+        "objective": "A",
+        "name": "Understanding Threat",
+        "rating": "PAR",
+        "impact": 4,
+        "likelihood": 3,
+        "effort": 4,
+        "priority": 3,
+        "category": "strategic",
+        "action": "Adopt threat analysis methodology (e.g. attack trees); integrate threat intelligence feeds and model likely attack scenarios against the essential function."
+      },
+      {
+        "ref": "B1.a",
+        "objective": "B",
+        "name": "Policy, Process and Procedure Development",
+        "rating": "PAR",
+        "impact": 3,
+        "likelihood": 2,
+        "effort": 2,
+        "priority": 3,
+        "category": "foundation",
+        "action": "Develop comprehensive security policy suite aligned to risk; set a review schedule; track exceptions."
+      },
+      {
+        "ref": "C1.e",
+        "objective": "C",
+        "name": "Personnel Skills for Monitoring and Detection",
+        "rating": "PAR",
+        "impact": 4,
+        "likelihood": 3,
+        "effort": 4,
+        "priority": 3,
+        "category": "strategic",
+        "action": "Assess monitoring skills and tooling gaps; upskill or augment the SOC for OT competency."
+      }
+    ]
+  },
+  "contributingOutcomes": [
+    {
+      "ref": "A1.a",
+      "objective": "A",
+      "principle": "A1",
+      "principleTitle": "Governance",
+      "name": "Board Direction",
+      "newInV4": false,
+      "partiallyAchievedAvailable": false,
+      "rating": "ACH",
+      "ratingLabel": "Achieved",
+      "profileTarget": "ACH",
+      "meetsTarget": true,
+      "complianceGap": false,
+      "impact": 5,
+      "likelihood": 2,
+      "effort": 3,
+      "riskScore": null,
+      "impactDefault": 5,
+      "likelihoodDefault": 2,
+      "effortDefault": 3,
+      "riskOverridden": false,
+      "recommendedAction": "Establish board-level ownership; schedule regular security briefings with board sponsor.",
+      "actionEdited": false,
+      "engagementNotes": null,
+      "compensatingControl": "All applicable board-direction indicators met; indicator 5 (security in all relevant discussions) is embedded via the standing OT risk agenda item — outcome assessed Achieved.",
+      "igp": [
+        {
+          "statement": "Your organisation's approach and policy relating to the security of network and information systems supporting the operation of your essential functions are owned and managed at board level. These are communicated, in a meaningful way, to risk management decision-makers across the organisation.",
+          "status": "ACH",
+          "statusLabel": "Achieved",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Regular board-level discussions on the security of network and information systems supporting the operation of your essential functions take place, based on timely and accurate information and informed by expert guidance. There is a board-level individual who has overall accountability for the security of network and information systems and drives regular discussion at board-level.",
+          "status": "ACH",
+          "statusLabel": "Achieved",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Direction set at board level is translated into effective organisational practices that direct and control the security of network and information systems supporting your essential functions.",
+          "status": "ACH",
+          "statusLabel": "Achieved",
+          "compensatingControl": null
+        },
+        {
+          "statement": "The board has the information and understanding needed in order to effectively discuss how the security and resilience of network and information systems contributes to the delivery of essential functions and what the potential impact from compromise of those systems would be.",
+          "status": "ACH",
+          "statusLabel": "Achieved",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Security is recognised as an important enabler for the resilience of your essential functions and considered in all relevant discussions.",
+          "status": "NA",
+          "statusLabel": "Not Applicable",
+          "compensatingControl": null
+        }
+      ],
+      "igpSummary": {
+        "ach": 4,
+        "par": 0,
+        "na": 1,
+        "notmet": 0,
+        "total": 5,
+        "addressed": 5
+      },
+      "justification": null,
+      "evidence": "Board-approved cyber strategy CYB-STR-2026 v3; quarterly review minuted (BM-2026-Q2, item 4).",
+      "justificationRequired": false,
+      "justificationMissing": false
+    },
+    {
+      "ref": "A1.b",
+      "objective": "A",
+      "principle": "A1",
+      "principleTitle": "Governance",
+      "name": "Roles and Responsibilities",
+      "newInV4": false,
+      "partiallyAchievedAvailable": false,
+      "rating": "ACH",
+      "ratingLabel": "Achieved",
+      "profileTarget": "ACH",
+      "meetsTarget": true,
+      "complianceGap": false,
+      "impact": 4,
+      "likelihood": 2,
+      "effort": 2,
+      "riskScore": null,
+      "impactDefault": 4,
+      "likelihoodDefault": 2,
+      "effortDefault": 2,
+      "riskOverridden": false,
+      "recommendedAction": "Define and document security roles; assign named owners; review annually.",
+      "actionEdited": false,
+      "engagementNotes": null,
+      "compensatingControl": null,
+      "igp": [
+        {
+          "statement": "Key roles and responsibilities for the security of network and information systems supporting your essential functions have been identified. These are reviewed regularly to ensure they remain fit for purpose.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Appropriately capable and knowledgeable staff fill those roles and are given the time, authority, and resources to carry out their duties.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "There is clarity on who in your organisation has overall accountability for the security of network and information systems supporting your essential functions.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        }
+      ],
+      "igpSummary": {
+        "ach": 0,
+        "par": 0,
+        "na": 0,
+        "notmet": 3,
+        "total": 3,
+        "addressed": 0
+      },
+      "justification": null,
+      "evidence": "CISO reports to Board; OT risk standing item; delegated authority matrix RACI-OT-02.",
+      "justificationRequired": false,
+      "justificationMissing": false
+    },
+    {
+      "ref": "A1.c",
+      "objective": "A",
+      "principle": "A1",
+      "principleTitle": "Governance",
+      "name": "Decision-making",
+      "newInV4": false,
+      "partiallyAchievedAvailable": false,
+      "rating": "NOT",
+      "ratingLabel": "Not Achieved",
+      "profileTarget": "ACH",
+      "meetsTarget": false,
+      "complianceGap": true,
+      "impact": 4,
+      "likelihood": 2,
+      "effort": 2,
+      "riskScore": 8,
+      "impactDefault": 4,
+      "likelihoodDefault": 2,
+      "effortDefault": 2,
+      "riskOverridden": false,
+      "recommendedAction": "Establish risk appetite statement; implement risk-based decision framework for OT/IT.",
+      "actionEdited": false,
+      "engagementNotes": null,
+      "compensatingControl": null,
+      "igp": [
+        {
+          "statement": "Senior management have visibility of key risk decisions made throughout the organisation.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Risk management decision-makers understand their responsibilities for making effective and timely decisions in the context of the risk appetite regarding the essential functions, as set by senior management.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Risk management decision-making is delegated and escalated where necessary, across the organisation, to people who have the skills, knowledge, tools and authority they need.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Risk management decisions are regularly reviewed to ensure their continued relevance and validity.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        }
+      ],
+      "igpSummary": {
+        "ach": 0,
+        "par": 0,
+        "na": 0,
+        "notmet": 4,
+        "total": 4,
+        "addressed": 0
+      },
+      "justification": null,
+      "evidence": "OT decisions still routed through IT governance; no separate OT risk acceptance route. Gap logged RISK-118.",
+      "justificationRequired": false,
+      "justificationMissing": false
+    },
+    {
+      "ref": "A2.a",
+      "objective": "A",
+      "principle": "A2",
+      "principleTitle": "Risk Management",
+      "name": "Risk Management Process",
+      "newInV4": false,
+      "partiallyAchievedAvailable": true,
+      "rating": "PAR",
+      "ratingLabel": "Partially Achieved",
+      "profileTarget": "ACH",
+      "meetsTarget": false,
+      "complianceGap": true,
+      "impact": 5,
+      "likelihood": 3,
+      "effort": 3,
+      "riskScore": 7.5,
+      "impactDefault": 5,
+      "likelihoodDefault": 3,
+      "effortDefault": 3,
+      "riskOverridden": false,
+      "recommendedAction": "Implement formal risk management process with regular review cycles at system level.",
+      "actionEdited": false,
+      "engagementNotes": null,
+      "compensatingControl": null,
+      "igp": [
+        {
+          "statement": "Your organisational process ensures that security risks to network and information systems relevant to essential functions are identified, analysed, prioritised and managed.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Your approach to risk is focused on the possibility of adverse impact to your essential functions, leading to a detailed understanding of how such impact might arise as a consequence of possible threat actor actions and the security properties of network and information systems supporting your essential functions.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Your risk assessments are based on a clearly understood set of threat assumptions, informed by an up-to-date understanding of threats to network and information systems supporting your essential functions, your sector and wider national infrastructure.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Your risk assessments are informed by an understanding of the vulnerabilities in network and information systems supporting your essential functions. The output from your risk management process is a clear set of traceable and prioritised security requirements that will address the risks in line with your organisational approach to security.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Significant conclusions reached in the course of your risk management process are communicated to key security decision makers and accountable individuals.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Your risk assessments are dynamic and readily updated in the light of relevant changes which may include technical changes to network and information systems supporting your essential functions, change of use, the introduction of new or emergent technologies or new threat information.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "The effectiveness of your risk management process is reviewed regularly, and improvements made as required.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You anticipate technological developments that could be used to adversely impact network and information systems supporting your essential functions.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        }
+      ],
+      "igpSummary": {
+        "ach": 0,
+        "par": 0,
+        "na": 0,
+        "notmet": 8,
+        "total": 8,
+        "addressed": 0
+      },
+      "justification": null,
+      "evidence": "Enterprise risk register covers OT at asset-group level; per-system granularity for Marlow outstanding.",
+      "justificationRequired": false,
+      "justificationMissing": false
+    },
+    {
+      "ref": "A2.b",
+      "objective": "A",
+      "principle": "A2",
+      "principleTitle": "Risk Management",
+      "name": "Understanding Threat",
+      "newInV4": true,
+      "partiallyAchievedAvailable": true,
+      "rating": "PAR",
+      "ratingLabel": "Partially Achieved",
+      "profileTarget": "ACH",
+      "meetsTarget": false,
+      "complianceGap": true,
+      "impact": 4,
+      "likelihood": 3,
+      "effort": 4,
+      "riskScore": 6,
+      "impactDefault": 4,
+      "likelihoodDefault": 3,
+      "effortDefault": 4,
+      "riskOverridden": false,
+      "recommendedAction": "Adopt threat analysis methodology (e.g. attack trees); integrate threat intelligence feeds and model likely attack scenarios against the essential function.",
+      "actionEdited": false,
+      "engagementNotes": null,
+      "compensatingControl": null,
+      "igp": [
+        {
+          "statement": "You perform detailed threat analysis and understand how this applies to network and information systems supporting your essential functions, in the context of your sector and wider national infrastructure.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Your detailed understanding of threat includes the methods and techniques available to capable and well resourced threat actors and how they could be used systematically against network and information systems supporting your essential functions.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You use appropriate techniques to develop an understanding of network and information systems supporting your essential functions from a threat actor’s perspective.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You anticipate probable attack methods and techniques, targets and objectives, and develop plausible scenarios.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You understand the different steps a capable and well-resourced threat actor would need to take to reach the probable targets.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You identify and justify what measures can be used at each step to reduce the likelihood of the threat actor reaching the probable targets or achieving their objectives.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You maintain a detailed understanding of current threats (for example, by threat intelligence and proactive research).",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You apply your detailed understanding of threat to inform your risk management decision making.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You have documented the steps required to undertake detailed threat analysis.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        }
+      ],
+      "igpSummary": {
+        "ach": 0,
+        "par": 0,
+        "na": 0,
+        "notmet": 9,
+        "total": 9,
+        "addressed": 0
+      },
+      "justification": null,
+      "evidence": "Threat briefings consumed from NCSC & WISER; not yet formally modelled against Marlow attack paths.",
+      "justificationRequired": false,
+      "justificationMissing": false
+    },
+    {
+      "ref": "A2.c",
+      "objective": "A",
+      "principle": "A2",
+      "principleTitle": "Risk Management",
+      "name": "Assurance",
+      "newInV4": false,
+      "partiallyAchievedAvailable": false,
+      "rating": "NOT",
+      "ratingLabel": "Not Achieved",
+      "profileTarget": "ACH",
+      "meetsTarget": false,
+      "complianceGap": true,
+      "impact": 3,
+      "likelihood": 2,
+      "effort": 3,
+      "riskScore": 6,
+      "impactDefault": 3,
+      "likelihoodDefault": 2,
+      "effortDefault": 3,
+      "riskOverridden": false,
+      "recommendedAction": "Define assurance programme; conduct penetration testing and independent reviews of the risk methodology.",
+      "actionEdited": false,
+      "engagementNotes": null,
+      "compensatingControl": null,
+      "igp": [
+        {
+          "statement": "You validate that the security measures in place to protect network and information systems supporting your essential functions are effective and remain effective for the lifetime over which they are needed.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You understand the assurance methods available to you and choose appropriate methods to gain confidence in the security of network and information systems supporting your essential functions.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Your confidence in the security as it relates to your technology, people, and processes can be justified to, and verified by, a third party.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Security deficiencies uncovered by assurance activities are assessed, prioritised and remedied when necessary in a timely and effective way.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "The methods used for assurance are reviewed to ensure they are working as intended and remain the most appropriate method to use.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        }
+      ],
+      "igpSummary": {
+        "ach": 0,
+        "par": 0,
+        "na": 0,
+        "notmet": 5,
+        "total": 5,
+        "addressed": 0
+      },
+      "justification": null,
+      "evidence": "No independent assurance of the risk methodology to date; first external review scheduled Q4.",
+      "justificationRequired": false,
+      "justificationMissing": false
+    },
+    {
+      "ref": "A3.a",
+      "objective": "A",
+      "principle": "A3",
+      "principleTitle": "Asset Management",
+      "name": "Asset Management",
+      "newInV4": false,
+      "partiallyAchievedAvailable": false,
+      "rating": "ACH",
+      "ratingLabel": "Achieved",
+      "profileTarget": "ACH",
+      "meetsTarget": true,
+      "complianceGap": false,
+      "impact": 4,
+      "likelihood": 3,
+      "effort": 3,
+      "riskScore": null,
+      "impactDefault": 4,
+      "likelihoodDefault": 3,
+      "effortDefault": 3,
+      "riskOverridden": false,
+      "recommendedAction": "Conduct asset discovery; maintain live CMDB; classify by criticality; reconcile regularly.",
+      "actionEdited": false,
+      "engagementNotes": null,
+      "compensatingControl": null,
+      "igp": [
+        {
+          "statement": "All assets relevant to the secure operation of network and information systems supporting your essential functions are identified and inventoried (at a suitable level of detail). The inventory is kept up to date.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Dependencies on supporting infrastructure (for example, power, cooling and so on) are recognised and recorded.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You have prioritised your assets according to their importance to the operation of network and information systems supporting your essential functions.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You have assigned responsibility for managing all assets, including physical assets, relevant to the operation of network and information systems supporting your essential functions.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Assets relevant to network and information systems supporting your essential functions are managed with cyber security in mind throughout their life cycle, from creation through to eventual decommissioning or disposal.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        }
+      ],
+      "igpSummary": {
+        "ach": 0,
+        "par": 0,
+        "na": 0,
+        "notmet": 5,
+        "total": 5,
+        "addressed": 0
+      },
+      "justification": null,
+      "evidence": "Asset register in CMDB reconciled monthly; OT assets tagged; last reconciliation 2026-08-01.",
+      "justificationRequired": false,
+      "justificationMissing": false
+    },
+    {
+      "ref": "A4.a",
+      "objective": "A",
+      "principle": "A4",
+      "principleTitle": "Supply Chain",
+      "name": "Supply Chain",
+      "newInV4": false,
+      "partiallyAchievedAvailable": true,
+      "rating": "PAR",
+      "ratingLabel": "Partially Achieved",
+      "profileTarget": "ACH",
+      "meetsTarget": false,
+      "complianceGap": true,
+      "impact": 4,
+      "likelihood": 4,
+      "effort": 4,
+      "riskScore": 8,
+      "impactDefault": 4,
+      "likelihoodDefault": 4,
+      "effortDefault": 4,
+      "riskOverridden": false,
+      "recommendedAction": "Conduct supply chain review; add security clauses to contracts; assess fourth-party risk.",
+      "actionEdited": false,
+      "engagementNotes": null,
+      "compensatingControl": null,
+      "igp": [
+        {
+          "statement": "You have a deep understanding of your supply chain, including sub-contractors, and the wider risks it faces.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You consider factors such as your supplier’s ownership, nationality, partnerships, competitors, other organisations with which they sub-contract and their approach to cyber security. These factors inform your risk assessment and are fully considered in your procurement life cycle processes and purchasing decisions.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Your approach to supply chain risk management considers the risks to network and information systems supporting your essential functions arising from supply chain subversion by capable and well-resourced threat actors.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Critical suppliers to network and information systems supporting your essential functions can demonstrate appropriate and proportionate levels of cyber security within the context of capable and well-resourced threat actors.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You have confidence that information held by suppliers that is essential to the operation of network and information systems supporting your essential functions is appropriately protected from capable and well-resourced threat actors.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You understand which contracts are relevant and you include appropriate security obligations, in relevant contracts.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You have a proactive approach to contract management which may include a contract management plan for relevant contracts. Customer and supplier ownership of responsibilities is defined in contracts.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "All network connections and data sharing with third parties are managed effectively and proportionately.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "When appropriate, your incident management process and that of your suppliers provide mutual support in the resolution of incidents.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        }
+      ],
+      "igpSummary": {
+        "ach": 0,
+        "par": 0,
+        "na": 0,
+        "notmet": 9,
+        "total": 9,
+        "addressed": 0
+      },
+      "justification": null,
+      "evidence": "Supplier security schedules in place for two of four critical OT vendors; remaining two in contract renewal.",
+      "justificationRequired": false,
+      "justificationMissing": false
+    },
+    {
+      "ref": "A4.b",
+      "objective": "A",
+      "principle": "A4",
+      "principleTitle": "Supply Chain",
+      "name": "Secure Software Development and Support",
+      "newInV4": true,
+      "partiallyAchievedAvailable": true,
+      "rating": "NOT",
+      "ratingLabel": "Not Achieved",
+      "profileTarget": "PAR",
+      "meetsTarget": false,
+      "complianceGap": true,
+      "impact": 4,
+      "likelihood": 4,
+      "effort": 5,
+      "riskScore": 16,
+      "impactDefault": 4,
+      "likelihoodDefault": 4,
+      "effortDefault": 5,
+      "riskOverridden": false,
+      "recommendedAction": "Impose secure development requirements on software suppliers; require SBOM and NIST SSDF / SDL evidence.",
+      "actionEdited": false,
+      "engagementNotes": null,
+      "compensatingControl": null,
+      "igp": [
+        {
+          "statement": "Your software suppliers leverage an established secure software development framework (for example, NIST Secure Software Development Framework (SSDF), Microsoft Secure Development Lifecycle (SDL)).",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Your software supplier can demonstrate a thorough understanding of the composition and provenance of software provided to you, including any third-party components used in the development of that software, and those components are being monitored for new vulnerabilities throughout the lifespan of the product.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You consider the security of environments (for example, development, test and production), including source code and repositories, used in the production of software to be appropriate and proportionate within the context of capable and well-resourced threat actors.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "The software development life cycle is informed by a detailed and up to date understanding of threat and applies appropriate techniques, such as threat modelling, to identify and assess potential vulnerabilities and attack vectors.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You can attest to the authenticity and integrity of software, including updates and patches.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        }
+      ],
+      "igpSummary": {
+        "ach": 0,
+        "par": 0,
+        "na": 0,
+        "notmet": 5,
+        "total": 5,
+        "addressed": 0
+      },
+      "justification": null,
+      "evidence": "No secure development requirements imposed on the SCADA integrator; identified in supply-chain review SC-07.",
+      "justificationRequired": false,
+      "justificationMissing": false
+    },
+    {
+      "ref": "B1.a",
+      "objective": "B",
+      "principle": "B1",
+      "principleTitle": "Service Protection Policies, Processes and Procedures",
+      "name": "Policy, Process and Procedure Development",
+      "newInV4": false,
+      "partiallyAchievedAvailable": true,
+      "rating": "PAR",
+      "ratingLabel": "Partially Achieved",
+      "profileTarget": "ACH",
+      "meetsTarget": false,
+      "complianceGap": true,
+      "impact": 3,
+      "likelihood": 2,
+      "effort": 2,
+      "riskScore": 3,
+      "impactDefault": 3,
+      "likelihoodDefault": 2,
+      "effortDefault": 2,
+      "riskOverridden": false,
+      "recommendedAction": "Develop comprehensive security policy suite aligned to risk; set a review schedule; track exceptions.",
+      "actionEdited": false,
+      "engagementNotes": null,
+      "compensatingControl": null,
+      "igp": [
+        {
+          "statement": "You fully document your overarching security governance and risk management approach, technical security practice and specific regulatory compliance.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Cyber security is integrated and embedded throughout policies, processes and procedures and key performance indicators are reported to your executive management.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Your organisation’s policies, processes and procedures are developed to be practical, usable and appropriate to mitigate the risk of adverse impact to network and information systems supporting your essential functions.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Policies, processes and procedures that rely on user behaviour are practical, appropriate and achievable.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You review and update policies, processes and procedures at suitably regular intervals to ensure they remain relevant. This is in addition to reviews following a major cyber security incident.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Any changes to the essential functions or the threat it faces triggers a review of policies, processes and procedures. Your systems are designed so that they remain secure even when user security policies, processes and procedures are not always followed.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        }
+      ],
+      "igpSummary": {
+        "ach": 0,
+        "par": 0,
+        "na": 0,
+        "notmet": 6,
+        "total": 6,
+        "addressed": 0
+      },
+      "justification": null,
+      "evidence": "Security policies published; OT-specific procedures partially drafted; awareness of exceptions inconsistent.",
+      "justificationRequired": false,
+      "justificationMissing": false
+    },
+    {
+      "ref": "B1.b",
+      "objective": "B",
+      "principle": "B1",
+      "principleTitle": "Service Protection Policies, Processes and Procedures",
+      "name": "Policy, Process and Procedure Implementation",
+      "newInV4": false,
+      "partiallyAchievedAvailable": true,
+      "rating": "PAR",
+      "ratingLabel": "Partially Achieved",
+      "profileTarget": "PAR",
+      "meetsTarget": true,
+      "complianceGap": false,
+      "impact": 4,
+      "likelihood": 3,
+      "effort": 2,
+      "riskScore": 6,
+      "impactDefault": 4,
+      "likelihoodDefault": 3,
+      "effortDefault": 2,
+      "riskOverridden": false,
+      "recommendedAction": "Implement policy compliance monitoring; extend coverage to the OT estate; integrate into assurance.",
+      "actionEdited": false,
+      "engagementNotes": null,
+      "compensatingControl": null,
+      "igp": [
+        {
+          "statement": "All your policies, processes and procedures are followed, their correct application and security effectiveness is evaluated.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Your policies, processes and procedures are integrated with other organisational policies, processes and procedures, including HR assessments of individuals' trustworthiness.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Your policies, processes and procedures are effectively and appropriately communicated across all levels of the organisation resulting in good staff awareness of their responsibilities.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Appropriate action is taken to address all breaches of policies, processes and procedures with potential to adversely impact the essential functions including aggregated breaches.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        }
+      ],
+      "igpSummary": {
+        "ach": 0,
+        "par": 0,
+        "na": 0,
+        "notmet": 4,
+        "total": 4,
+        "addressed": 0
+      },
+      "justification": null,
+      "evidence": "Policy compliance measured for IT; OT coverage manual and infrequent.",
+      "justificationRequired": false,
+      "justificationMissing": false
+    },
+    {
+      "ref": "B2.a",
+      "objective": "B",
+      "principle": "B2",
+      "principleTitle": "Identity and Access Control",
+      "name": "Identity Verification, Authentication and Authorisation",
+      "newInV4": false,
+      "partiallyAchievedAvailable": true,
+      "rating": "ACH",
+      "ratingLabel": "Achieved",
+      "profileTarget": "ACH",
+      "meetsTarget": true,
+      "complianceGap": false,
+      "impact": 5,
+      "likelihood": 5,
+      "effort": 3,
+      "riskScore": null,
+      "impactDefault": 5,
+      "likelihoodDefault": 5,
+      "effortDefault": 3,
+      "riskOverridden": false,
+      "recommendedAction": "Deploy MFA for all remote and privileged access; enforce a jump-host; review access lists.",
+      "actionEdited": false,
+      "engagementNotes": null,
+      "compensatingControl": null,
+      "igp": [
+        {
+          "statement": "Your process of initial identity verification is robust enough to provide a high level of confidence of a user’s identity profile before allowing an authorised user access to network and information systems that support your essential functions.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Only authorised and individually authenticated users can physically access and logically connect to your network or information systems on which your essential functions depends.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "The number of authorised users and systems that have access to network and information systems is limited to the minimum necessary to support your essential functions.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You use additional strong authentication mechanisms, such as multi-factor authentication (MFA), for all user access, including remote access, to all network and information systems that operate or support your essential functions.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "The list of users and systems with access to network and information systems supporting and delivering the essential functions is reviewed on a regular basis, at least every 6 months.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Your approach to authenticating users, devices and systems follows up-to-date best practice.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        }
+      ],
+      "igpSummary": {
+        "ach": 0,
+        "par": 0,
+        "na": 0,
+        "notmet": 6,
+        "total": 6,
+        "addressed": 0
+      },
+      "justification": null,
+      "evidence": "MFA enforced for all remote and privileged access to the Marlow environment; jump-host mandated.",
+      "justificationRequired": false,
+      "justificationMissing": false
+    },
+    {
+      "ref": "B2.b",
+      "objective": "B",
+      "principle": "B2",
+      "principleTitle": "Identity and Access Control",
+      "name": "Device Management",
+      "newInV4": false,
+      "partiallyAchievedAvailable": true,
+      "rating": "PAR",
+      "ratingLabel": "Partially Achieved",
+      "profileTarget": "ACH",
+      "meetsTarget": false,
+      "complianceGap": true,
+      "impact": 4,
+      "likelihood": 3,
+      "effort": 3,
+      "riskScore": 6,
+      "impactDefault": 4,
+      "likelihoodDefault": 4,
+      "effortDefault": 3,
+      "riskOverridden": true,
+      "recommendedAction": "Implement certificate-based device management; retire shared local accounts on legacy HMIs.",
+      "actionEdited": false,
+      "engagementNotes": [
+        "Client confirmed certificate-based auth project funded for Q1 2027."
+      ],
+      "compensatingControl": "3 of 4 indicators met or partial; residual shared-account risk is compensated by physical and logging controls — outcome assessed Partially Achieved pending Q1 remediation.",
+      "igp": [
+        {
+          "statement": "All privileged operations performed on network and information systems supporting your essential functions are conducted from highly trusted devices, such as Privileged Access Workstations, dedicated solely to those operations.",
+          "status": "ACH",
+          "statusLabel": "Achieved",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You either obtain independent and professional assurance of the security of third-party devices or networks before they connect to network and information systems, or you only allow third-party devices or networks that are dedicated to supporting network and information systems to connect.",
+          "status": "PAR",
+          "statusLabel": "Partially Achieved",
+          "compensatingControl": "Legacy HMI shared accounts are mitigated by physical access control to the plant room and full session logging pending certificate rollout (RISK-091)."
+        },
+        {
+          "statement": "You perform certificate based device identity management and only allow known devices to access systems necessary for the operation of your essential functions.",
+          "status": "ACH",
+          "statusLabel": "Achieved",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You perform regular scans to detect unknown devices and investigate any findings.",
+          "status": "ACH",
+          "statusLabel": "Achieved",
+          "compensatingControl": null
+        }
+      ],
+      "igpSummary": {
+        "ach": 3,
+        "par": 1,
+        "na": 0,
+        "notmet": 0,
+        "total": 4,
+        "addressed": 4
+      },
+      "justification": null,
+      "evidence": "PAM deployed for engineering workstations; some legacy HMI local accounts remain shared. Remediation RISK-091.",
+      "justificationRequired": false,
+      "justificationMissing": false
+    },
+    {
+      "ref": "B2.c",
+      "objective": "B",
+      "principle": "B2",
+      "principleTitle": "Identity and Access Control",
+      "name": "Privileged User Management",
+      "newInV4": false,
+      "partiallyAchievedAvailable": true,
+      "rating": "NOT",
+      "ratingLabel": "Not Achieved",
+      "profileTarget": "ACH",
+      "meetsTarget": false,
+      "complianceGap": true,
+      "impact": 5,
+      "likelihood": 5,
+      "effort": 3,
+      "riskScore": 25,
+      "impactDefault": 5,
+      "likelihoodDefault": 5,
+      "effortDefault": 3,
+      "riskOverridden": false,
+      "recommendedAction": "Establish periodic access re-certification for OT accounts; implement just-in-time privileged access.",
+      "actionEdited": false,
+      "engagementNotes": null,
+      "compensatingControl": null,
+      "igp": [
+        {
+          "statement": "Privileged user access to network and information systems supporting your essential functions is carried out from dedicated separate accounts that are closely monitored and managed.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "The issuing of temporary, time-bound rights for privileged user access or external third-party support access, or both, is in place.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Privileged user access rights are regularly reviewed and always updated as part of your joiners, movers and leavers process.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "All privileged user activity is routinely reviewed, validated and recorded for offline analysis and investigation.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        }
+      ],
+      "igpSummary": {
+        "ach": 0,
+        "par": 0,
+        "na": 0,
+        "notmet": 4,
+        "total": 4,
+        "addressed": 0
+      },
+      "justification": null,
+      "evidence": "No periodic access re-certification for OT accounts; last full review >18 months ago.",
+      "justificationRequired": false,
+      "justificationMissing": false
+    },
+    {
+      "ref": "B2.d",
+      "objective": "B",
+      "principle": "B2",
+      "principleTitle": "Identity and Access Control",
+      "name": "Identity and Access Management (IdAM)",
+      "newInV4": false,
+      "partiallyAchievedAvailable": true,
+      "rating": "PAR",
+      "ratingLabel": "Partially Achieved",
+      "profileTarget": "ACH",
+      "meetsTarget": false,
+      "complianceGap": true,
+      "impact": 4,
+      "likelihood": 4,
+      "effort": 3,
+      "riskScore": 8,
+      "impactDefault": 4,
+      "likelihoodDefault": 4,
+      "effortDefault": 3,
+      "riskOverridden": false,
+      "recommendedAction": "Conduct access rights review; authenticate field devices; automate the joiners/movers/leavers process.",
+      "actionEdited": false,
+      "engagementNotes": null,
+      "compensatingControl": null,
+      "igp": [
+        {
+          "statement": "You follow a robust procedure to verify each user and issue the minimum required access rights, and the application of the procedure is regularly audited.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "User access rights are reviewed as part of your joiners, leavers and movers process both when people change roles and at regular intervals, at least annually.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "All user, device and systems access to network and information systems supporting your essential functions is logged and monitored.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You regularly review access logs and correlate this data with other access records and expected activity.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Attempts by unauthorised users, devices or systems to connect to network and information systems supporting your essential functions are alerted, promptly assessed and investigated.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        }
+      ],
+      "igpSummary": {
+        "ach": 0,
+        "par": 0,
+        "na": 0,
+        "notmet": 5,
+        "total": 5,
+        "addressed": 0
+      },
+      "justification": null,
+      "evidence": "Device certificates issued for new PLCs; legacy field devices unauthenticated on the process network.",
+      "justificationRequired": false,
+      "justificationMissing": false
+    },
+    {
+      "ref": "B3.a",
+      "objective": "B",
+      "principle": "B3",
+      "principleTitle": "Data Security",
+      "name": "Understanding Data",
+      "newInV4": false,
+      "partiallyAchievedAvailable": true,
+      "rating": "ACH",
+      "ratingLabel": "Achieved",
+      "profileTarget": "ACH",
+      "meetsTarget": true,
+      "complianceGap": false,
+      "impact": 3,
+      "likelihood": 3,
+      "effort": 2,
+      "riskScore": null,
+      "impactDefault": 3,
+      "likelihoodDefault": 3,
+      "effortDefault": 2,
+      "riskOverridden": false,
+      "recommendedAction": "Complete data flow mapping for the essential function; classify and catalogue sensitive data assets.",
+      "actionEdited": false,
+      "engagementNotes": null,
+      "compensatingControl": null,
+      "igp": [
+        {
+          "statement": "You have identified and catalogued all the data important to the operation of network and information systems supporting your essential functions, or that would assist a threat actor.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You have identified and catalogued who has access to the data important to the operation of network and information systems supporting your essential functions.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You maintain a current understanding of the location, quantity and quality of data important to the operation of network and information systems supporting your essential functions.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You take steps to remove or minimise unnecessary copies or unneeded historic data.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You have identified all mobile devices and media that may hold data important to the operation of network and information systems supporting your essential functions.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You maintain a current understanding of the data links used to transmit data that is important to network and information systems supporting your essential functions.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You understand the context, limitations and dependencies of your important data.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You understand and document the impact on your essential functions of all relevant scenarios, including unauthorised data access, uncontrolled release, modification or deletion, or when authorised users are unable to appropriately access this data. You validate these documented impact statements regularly, at least annually.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        }
+      ],
+      "igpSummary": {
+        "ach": 0,
+        "par": 0,
+        "na": 0,
+        "notmet": 8,
+        "total": 8,
+        "addressed": 0
+      },
+      "justification": null,
+      "evidence": "Data flows for Marlow documented in DFD-Marlow-v2; classification applied.",
+      "justificationRequired": false,
+      "justificationMissing": false
+    },
+    {
+      "ref": "B3.b",
+      "objective": "B",
+      "principle": "B3",
+      "principleTitle": "Data Security",
+      "name": "Data in Transit",
+      "newInV4": false,
+      "partiallyAchievedAvailable": true,
+      "rating": "PAR",
+      "ratingLabel": "Partially Achieved",
+      "profileTarget": "ACH",
+      "meetsTarget": false,
+      "complianceGap": true,
+      "impact": 4,
+      "likelihood": 4,
+      "effort": 3,
+      "riskScore": 8,
+      "impactDefault": 4,
+      "likelihoodDefault": 4,
+      "effortDefault": 3,
+      "riskOverridden": false,
+      "recommendedAction": "Audit data-in-transit protection; deploy TLS across the IT/OT boundary; document residual cleartext by design.",
+      "actionEdited": false,
+      "engagementNotes": null,
+      "compensatingControl": null,
+      "igp": [
+        {
+          "statement": "You have identified and protected (effectively and proportionately) all the data links that carry data important to the operation of your essential functions.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You apply appropriate physical or technical means (for example, cryptography), or both, to protect data that travels over non-trusted or openly accessible carriers, with justified confidence in the robustness of the protection applied.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Suitable alternative transmission paths are available where there is a significant risk of impact on the operation of the essential functions due to resource limitation (for example, transmission equipment or function failure, or important data being blocked or jammed).",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        }
+      ],
+      "igpSummary": {
+        "ach": 0,
+        "par": 0,
+        "na": 0,
+        "notmet": 3,
+        "total": 3,
+        "addressed": 0
+      },
+      "justification": null,
+      "evidence": "Data-in-transit encrypted across the IT/OT boundary; intra-OT process traffic remains cleartext by design constraint.",
+      "justificationRequired": false,
+      "justificationMissing": false
+    },
+    {
+      "ref": "B3.c",
+      "objective": "B",
+      "principle": "B3",
+      "principleTitle": "Data Security",
+      "name": "Stored Data",
+      "newInV4": false,
+      "partiallyAchievedAvailable": true,
+      "rating": "ACH",
+      "ratingLabel": "Achieved",
+      "profileTarget": "ACH",
+      "meetsTarget": true,
+      "complianceGap": false,
+      "impact": 4,
+      "likelihood": 4,
+      "effort": 3,
+      "riskScore": null,
+      "impactDefault": 4,
+      "likelihoodDefault": 4,
+      "effortDefault": 3,
+      "riskOverridden": false,
+      "recommendedAction": "Implement encryption at rest; test backup restoration; hold an offline copy.",
+      "actionEdited": false,
+      "engagementNotes": null,
+      "compensatingControl": null,
+      "igp": [
+        {
+          "statement": "All copies of data important to the operation of network and information systems supporting your essential functions are necessary. Where this important data is transferred to less secure systems, the data is provided with limited detail or as a read-only copy, or both.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You have applied suitable physical or technical means, or both, to protect this important stored data from unauthorised access, modification or deletion.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "If cryptographic protections are used you apply suitable technical and procedural means, and you have justified confidence in the robustness of the protection applied.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You have suitable, secured backups of data to allow the operation of network and information systems supporting your essential functions to continues should the original data not be available. This may include off-line or segregated backups, or appropriate alternative forms such as paper copies.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Necessary historic or archive data is suitably secured in storage.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        }
+      ],
+      "igpSummary": {
+        "ach": 0,
+        "par": 0,
+        "na": 0,
+        "notmet": 5,
+        "total": 5,
+        "addressed": 0
+      },
+      "justification": null,
+      "evidence": "Backups encrypted at rest; offline copy held; restore tested 2026-07 (RT-2026-07).",
+      "justificationRequired": false,
+      "justificationMissing": false
+    },
+    {
+      "ref": "B3.d",
+      "objective": "B",
+      "principle": "B3",
+      "principleTitle": "Data Security",
+      "name": "Mobile Data",
+      "newInV4": false,
+      "partiallyAchievedAvailable": true,
+      "rating": "NAP",
+      "ratingLabel": "Not Applicable",
+      "profileTarget": "ACH",
+      "meetsTarget": true,
+      "complianceGap": false,
+      "impact": 3,
+      "likelihood": 3,
+      "effort": 2,
+      "riskScore": null,
+      "impactDefault": 3,
+      "likelihoodDefault": 3,
+      "effortDefault": 2,
+      "riskOverridden": false,
+      "recommendedAction": "Enforce device-control policy; deploy MDM where mobile data is in scope; implement remote wipe.",
+      "actionEdited": false,
+      "engagementNotes": null,
+      "compensatingControl": null,
+      "igp": [
+        {
+          "statement": "Mobile devices that hold data that is important to the operation of network and information systems supporting your essential functions are catalogued, are under your organisation's control and configured according to best practice for the platform, with appropriate technical and procedural policies in place.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Your organisation can remotely wipe all mobile devices holding data important to the operation of network and information systems supporting your essential functions.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You have minimised this data on these mobile devices. Some data may be automatically deleted from mobile devices after a certain period.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        }
+      ],
+      "igpSummary": {
+        "ach": 0,
+        "par": 0,
+        "na": 0,
+        "notmet": 3,
+        "total": 3,
+        "addressed": 0
+      },
+      "justification": "Exemption: mobile data outcome does not apply to the Marlow OT environment in scope.\nJustification: no mobile or portable devices are permitted to process or store operational data within the OT security boundary; the environment is fixed-terminal only, enforced by device-control policy DEV-CTL-03 and physical port lockdown.\nCompensating controls: all data access is via hardwired HMI terminals inside the controlled area, with badge-in physical access logging and USB mass-storage blocked at the endpoint.",
+      "evidence": null,
+      "justificationRequired": true,
+      "justificationMissing": false
+    },
+    {
+      "ref": "B3.e",
+      "objective": "B",
+      "principle": "B3",
+      "principleTitle": "Data Security",
+      "name": "Media / Equipment Sanitisation",
+      "newInV4": false,
+      "partiallyAchievedAvailable": true,
+      "rating": "ACH",
+      "ratingLabel": "Achieved",
+      "profileTarget": "PAR",
+      "meetsTarget": true,
+      "complianceGap": false,
+      "impact": 2,
+      "likelihood": 2,
+      "effort": 1,
+      "riskScore": null,
+      "impactDefault": 2,
+      "likelihoodDefault": 2,
+      "effortDefault": 1,
+      "riskOverridden": false,
+      "recommendedAction": "Implement formal media sanitisation using NCSC-approved methods; retain destruction certificates.",
+      "actionEdited": false,
+      "engagementNotes": null,
+      "compensatingControl": null,
+      "igp": [
+        {
+          "statement": "You catalogue and track all devices that contain data important to the operation of network and information systems supporting your essential functions (whether a specific storage device or one with integral storage).",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Data important to the operation of network and information systems supporting your essential functions is removed from all devices, equipment and removable media before reuse or disposal using an assured product or service.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        }
+      ],
+      "igpSummary": {
+        "ach": 0,
+        "par": 0,
+        "na": 0,
+        "notmet": 2,
+        "total": 2,
+        "addressed": 0
+      },
+      "justification": null,
+      "evidence": "Media sanitisation to NCSC guidance; destruction certificates retained.",
+      "justificationRequired": false,
+      "justificationMissing": false
+    },
+    {
+      "ref": "B4.a",
+      "objective": "B",
+      "principle": "B4",
+      "principleTitle": "System Security",
+      "name": "Secure by Design",
+      "newInV4": false,
+      "partiallyAchievedAvailable": true,
+      "rating": "PAR",
+      "ratingLabel": "Partially Achieved",
+      "profileTarget": "ACH",
+      "meetsTarget": false,
+      "complianceGap": true,
+      "impact": 5,
+      "likelihood": 4,
+      "effort": 5,
+      "riskScore": 10,
+      "impactDefault": 5,
+      "likelihoodDefault": 4,
+      "effortDefault": 5,
+      "riskOverridden": false,
+      "recommendedAction": "Define and formalise a secure baseline for engineering hosts and PLC/RTU devices; minimise attack surface.",
+      "actionEdited": false,
+      "engagementNotes": null,
+      "compensatingControl": null,
+      "igp": [
+        {
+          "statement": "You employ appropriate expertise to design network and information systems supporting your essential functions. Network and information systems are segregated into appropriate security zones (for example, systems supporting the essential functions are segregated in a highly trusted, more secure zone).",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "The network and information systems supporting your essential functions are designed to have simple data flows between components to support effective security monitoring.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "The network and information systems supporting your essential functions are designed to be easy to recover.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Content-based attacks are mitigated for all inputs to network and information systems that affect the essential functions (for example, by transformation and inspection or sanitisation and validation).",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "If automated decision-making technologies are in use, you design and apply appropriate restrictions to prevent actions that could have an adverse impact on network and information systems supporting your essential functions.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        }
+      ],
+      "igpSummary": {
+        "ach": 0,
+        "par": 0,
+        "na": 0,
+        "notmet": 5,
+        "total": 5,
+        "addressed": 0
+      },
+      "justification": null,
+      "evidence": "Secure baseline defined for Windows engineering hosts; PLC/RTU hardening baseline not yet formalised.",
+      "justificationRequired": false,
+      "justificationMissing": false
+    },
+    {
+      "ref": "B4.b",
+      "objective": "B",
+      "principle": "B4",
+      "principleTitle": "System Security",
+      "name": "Secure Configuration",
+      "newInV4": false,
+      "partiallyAchievedAvailable": true,
+      "rating": "NOT",
+      "ratingLabel": "Not Achieved",
+      "profileTarget": "ACH",
+      "meetsTarget": false,
+      "complianceGap": true,
+      "impact": 4,
+      "likelihood": 4,
+      "effort": 3,
+      "riskScore": 16,
+      "impactDefault": 4,
+      "likelihoodDefault": 4,
+      "effortDefault": 3,
+      "riskOverridden": false,
+      "recommendedAction": "Extend vulnerability scanning to the OT segment (passive where active is unsafe); remove default credentials.",
+      "actionEdited": false,
+      "engagementNotes": null,
+      "compensatingControl": null,
+      "igp": [
+        {
+          "statement": "You have identified, documented and actively manage (for example, maintain security configurations, patching, updating according to good practice) the assets that need to be carefully configured to maintain the security of network and information systems supporting your essential functions.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "All platforms conform to your secure, defined baseline build, or the latest known good configuration version for that environment.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You closely and effectively manage changes in your environment, ensuring that network and information systems configurations are secure and documented.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You regularly review and validate that network and information systems have the expected, secure settings and configuration.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Only permitted software can be installed.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "If automated decision-making technologies are in use, their operation is well understood, and decisions can be replicated.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Generic, shared, default name and built-in accounts have been removed or disabled. Where this is not possible, credentials to these accounts have been changed. Service accounts are appropriately protected.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        }
+      ],
+      "igpSummary": {
+        "ach": 0,
+        "par": 0,
+        "na": 0,
+        "notmet": 7,
+        "total": 7,
+        "addressed": 0
+      },
+      "justification": null,
+      "evidence": "Vulnerability scanning does not extend to the OT segment; passive discovery only. Gap RISK-104.",
+      "justificationRequired": false,
+      "justificationMissing": false
+    },
+    {
+      "ref": "B4.c",
+      "objective": "B",
+      "principle": "B4",
+      "principleTitle": "System Security",
+      "name": "Secure Management",
+      "newInV4": false,
+      "partiallyAchievedAvailable": true,
+      "rating": "PAR",
+      "ratingLabel": "Partially Achieved",
+      "profileTarget": "ACH",
+      "meetsTarget": false,
+      "complianceGap": true,
+      "impact": 4,
+      "likelihood": 3,
+      "effort": 3,
+      "riskScore": 6,
+      "impactDefault": 4,
+      "likelihoodDefault": 3,
+      "effortDefault": 3,
+      "riskOverridden": false,
+      "recommendedAction": "Constrain OT patch windows to vendor-supported releases; establish change management and patch SLAs.",
+      "actionEdited": false,
+      "engagementNotes": null,
+      "compensatingControl": null,
+      "igp": [
+        {
+          "statement": "Your systems and devices supporting the operation of the essential functions are only administered or maintained by authorised privileged users from highly trusted devices, such as Privileged Access Workstations, dedicated solely to those operations.",
+          "status": "ACH",
+          "statusLabel": "Achieved",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You regularly review and update technical knowledge about network and information systems, such as documentation and network diagrams, and ensure they are securely stored.",
+          "status": "ACH",
+          "statusLabel": "Achieved",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You prevent, detect and remove malware, and unauthorised software. You use technical, procedural and physical measures as necessary.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": "Patch SLA exceptions are tracked in the OT change register and risk-accepted by the SRO where vendor certification lags; interim network segmentation limits exposure."
+        }
+      ],
+      "igpSummary": {
+        "ach": 2,
+        "par": 0,
+        "na": 0,
+        "notmet": 1,
+        "total": 3,
+        "addressed": 2
+      },
+      "justification": null,
+      "evidence": "IT patched to policy; OT patch windows constrained by vendor support and availability requirements.",
+      "justificationRequired": false,
+      "justificationMissing": false
+    },
+    {
+      "ref": "B4.d",
+      "objective": "B",
+      "principle": "B4",
+      "principleTitle": "System Security",
+      "name": "Vulnerability Management",
+      "newInV4": false,
+      "partiallyAchievedAvailable": true,
+      "rating": "ACH",
+      "ratingLabel": "Achieved",
+      "profileTarget": "ACH",
+      "meetsTarget": true,
+      "complianceGap": false,
+      "impact": 5,
+      "likelihood": 5,
+      "effort": 3,
+      "riskScore": null,
+      "impactDefault": 5,
+      "likelihoodDefault": 5,
+      "effortDefault": 3,
+      "riskOverridden": false,
+      "recommendedAction": "Maintain IT/OT segmentation with a documented conduit ruleset; review firewall rules regularly.",
+      "actionEdited": false,
+      "engagementNotes": null,
+      "compensatingControl": null,
+      "igp": [
+        {
+          "statement": "You maintain a current understanding of the exposure of network and information systems supporting your essential functions to publicly known vulnerabilities.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Announced vulnerabilities for all software packages used in network and information systems supporting your essential functions are tracked, prioritised and mitigated (for example, by patching) promptly.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You regularly test to fully understand the vulnerabilities of network and information systems that support the operation of your essential functions and verify this understanding with third-party testing.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You actively maximise the use of supported software, firmware and hardware in network and information systems supporting your essential functions.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        }
+      ],
+      "igpSummary": {
+        "ach": 0,
+        "par": 0,
+        "na": 0,
+        "notmet": 4,
+        "total": 4,
+        "addressed": 0
+      },
+      "justification": null,
+      "evidence": "IT/OT segmentation via firewall with documented conduit ruleset; reviewed 2026-06.",
+      "justificationRequired": false,
+      "justificationMissing": false
+    },
+    {
+      "ref": "B5.a",
+      "objective": "B",
+      "principle": "B5",
+      "principleTitle": "Resilient Networks and Systems",
+      "name": "Resilience Preparation",
+      "newInV4": false,
+      "partiallyAchievedAvailable": true,
+      "rating": "PAR",
+      "ratingLabel": "Partially Achieved",
+      "profileTarget": "ACH",
+      "meetsTarget": false,
+      "complianceGap": true,
+      "impact": 4,
+      "likelihood": 3,
+      "effort": 3,
+      "riskScore": 6,
+      "impactDefault": 4,
+      "likelihoodDefault": 3,
+      "effortDefault": 3,
+      "riskOverridden": false,
+      "recommendedAction": "Define OT-specific RTO/RPO; test BCP/DR plans; document recovery procedures for the essential function.",
+      "actionEdited": false,
+      "engagementNotes": null,
+      "compensatingControl": null,
+      "igp": [
+        {
+          "statement": "You have business continuity and disaster recovery plans that have been tested for practicality, effectiveness and completeness. Appropriate use is made of different test methods (for example, manual failover, table-top exercises or red-teaming).",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You use your security awareness and threat intelligence sources to identify new or heightened levels of risk, which result in immediate and potentially temporary security measures to enhance the security of network and information systems supporting your essential functions, (for example, in response to a widespread outbreak of very damaging malware).",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        }
+      ],
+      "igpSummary": {
+        "ach": 0,
+        "par": 0,
+        "na": 0,
+        "notmet": 2,
+        "total": 2,
+        "addressed": 0
+      },
+      "justification": null,
+      "evidence": "Resilience requirements defined for the essential function; OT-specific RTO/RPO under review.",
+      "justificationRequired": false,
+      "justificationMissing": false
+    },
+    {
+      "ref": "B5.b",
+      "objective": "B",
+      "principle": "B5",
+      "principleTitle": "Resilient Networks and Systems",
+      "name": "Design for Resilience",
+      "newInV4": false,
+      "partiallyAchievedAvailable": true,
+      "rating": "ACH",
+      "ratingLabel": "Achieved",
+      "profileTarget": "ACH",
+      "meetsTarget": true,
+      "complianceGap": false,
+      "impact": 4,
+      "likelihood": 3,
+      "effort": 4,
+      "riskScore": null,
+      "impactDefault": 4,
+      "likelihoodDefault": 3,
+      "effortDefault": 4,
+      "riskOverridden": false,
+      "recommendedAction": "Provide N+1 for critical control components; mitigate single points of failure; rehearse failover.",
+      "actionEdited": false,
+      "engagementNotes": null,
+      "compensatingControl": null,
+      "igp": [
+        {
+          "statement": "Network and information systems supporting the operation of your essential functions are segregated from other business and external systems by appropriate technical and physical means (for example, separate network and system infrastructure with independent user administration).",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Internet services, such as browsing and email, are not accessible from network and information systems supporting your essential functions.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You have identified and mitigated all resource limitations (for example, bandwidth limitations and single network paths).",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You have identified and mitigated any geographical constraints or weaknesses. (for example, systems that your essential functions depend upon are replicated in another location, important network connectivity has alternative physical paths and service providers).",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You review and update assessments of dependencies, resource and geographical limitations and mitigations when necessary.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        }
+      ],
+      "igpSummary": {
+        "ach": 0,
+        "par": 0,
+        "na": 0,
+        "notmet": 5,
+        "total": 5,
+        "addressed": 0
+      },
+      "justification": null,
+      "evidence": "N+1 for critical control components; tested failover of primary SCADA server 2026-05.",
+      "justificationRequired": false,
+      "justificationMissing": false
+    },
+    {
+      "ref": "B5.c",
+      "objective": "B",
+      "principle": "B5",
+      "principleTitle": "Resilient Networks and Systems",
+      "name": "Backups",
+      "newInV4": false,
+      "partiallyAchievedAvailable": true,
+      "rating": "PAR",
+      "ratingLabel": "Partially Achieved",
+      "profileTarget": "PAR",
+      "meetsTarget": true,
+      "complianceGap": false,
+      "impact": 5,
+      "likelihood": 4,
+      "effort": 2,
+      "riskScore": 10,
+      "impactDefault": 5,
+      "likelihoodDefault": 4,
+      "effortDefault": 2,
+      "riskOverridden": false,
+      "recommendedAction": "Implement a 3-2-1 backup strategy; rehearse OT configuration restores; air-gap critical backups.",
+      "actionEdited": false,
+      "engagementNotes": null,
+      "compensatingControl": null,
+      "igp": [
+        {
+          "statement": "Your comprehensive, automatic and tested technical and procedural backups are secured at centrally accessible or secondary sites to recover from an extreme event.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Backups of all important data and information needed to recover the essential functions are made, tested, documented and routinely reviewed.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        }
+      ],
+      "igpSummary": {
+        "ach": 0,
+        "par": 0,
+        "na": 0,
+        "notmet": 2,
+        "total": 2,
+        "addressed": 0
+      },
+      "justification": null,
+      "evidence": "Backups verified for IT; OT configuration backups held but restore not routinely rehearsed.",
+      "justificationRequired": false,
+      "justificationMissing": false
+    },
+    {
+      "ref": "B6.a",
+      "objective": "B",
+      "principle": "B6",
+      "principleTitle": "Staff Awareness and Training",
+      "name": "Cyber Security Culture",
+      "newInV4": false,
+      "partiallyAchievedAvailable": true,
+      "rating": "PAR",
+      "ratingLabel": "Partially Achieved",
+      "profileTarget": "ACH",
+      "meetsTarget": false,
+      "complianceGap": true,
+      "impact": 3,
+      "likelihood": 3,
+      "effort": 2,
+      "riskScore": 4.5,
+      "impactDefault": 3,
+      "likelihoodDefault": 3,
+      "effortDefault": 2,
+      "riskOverridden": false,
+      "recommendedAction": "Run a security awareness programme; embed security in culture; deliver leadership messaging.",
+      "actionEdited": false,
+      "engagementNotes": null,
+      "compensatingControl": null,
+      "igp": [
+        {
+          "statement": "Your executive management clearly and effectively communicates the organisation's cyber security priorities and objectives to all staff. Your organisation displays positive cyber security attitudes, behaviours and expectations.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "People in your organisation raising potential cyber security incidents and issues are treated positively.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Individuals at all levels in your organisation routinely report concerns or issues about cyber security and are recognised for their contribution to keeping the organisation secure.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Your management is seen to be committed to and actively involved in cyber security.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Your organisation communicates openly about cyber security, with any concern being taken seriously.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "People across your organisation collaborate in cyber security activities and improvements, building joint ownership and bringing knowledge of their area of expertise.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        }
+      ],
+      "igpSummary": {
+        "ach": 0,
+        "par": 0,
+        "na": 0,
+        "notmet": 6,
+        "total": 6,
+        "addressed": 0
+      },
+      "justification": null,
+      "evidence": "Annual awareness training completed by 88% of staff; OT-specific module in development.",
+      "justificationRequired": false,
+      "justificationMissing": false
+    },
+    {
+      "ref": "B6.b",
+      "objective": "B",
+      "principle": "B6",
+      "principleTitle": "Staff Awareness and Training",
+      "name": "Cyber Security Training",
+      "newInV4": false,
+      "partiallyAchievedAvailable": true,
+      "rating": "NOT",
+      "ratingLabel": "Not Achieved",
+      "profileTarget": "PAR",
+      "meetsTarget": false,
+      "complianceGap": true,
+      "impact": 3,
+      "likelihood": 3,
+      "effort": 2,
+      "riskScore": 9,
+      "impactDefault": 3,
+      "likelihoodDefault": 3,
+      "effortDefault": 2,
+      "riskOverridden": false,
+      "recommendedAction": "Deploy role-based training for OT engineers on secure operations; include phishing simulation; track completion.",
+      "actionEdited": false,
+      "engagementNotes": null,
+      "compensatingControl": null,
+      "igp": [
+        {
+          "statement": "All people in your organisation, from the most senior to the most junior, follow appropriate cyber security training paths.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Each individual's cyber security training is tracked and refreshed at suitable intervals.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You routinely evaluate your cyber security training and awareness activities to ensure they reach the widest audience and are effective.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You make cyber security information and good practice guidance easily accessible, widely available and you know it is referenced and used within your organisation.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        }
+      ],
+      "igpSummary": {
+        "ach": 0,
+        "par": 0,
+        "na": 0,
+        "notmet": 4,
+        "total": 4,
+        "addressed": 0
+      },
+      "justification": null,
+      "evidence": "No role-based training for OT engineers on secure operations; identified in TNA-2026.",
+      "justificationRequired": false,
+      "justificationMissing": false
+    },
+    {
+      "ref": "C1.a",
+      "objective": "C",
+      "principle": "C1",
+      "principleTitle": "Security Monitoring",
+      "name": "Sources and Tools for Logging and Monitoring",
+      "newInV4": false,
+      "partiallyAchievedAvailable": true,
+      "rating": "PAR",
+      "ratingLabel": "Partially Achieved",
+      "profileTarget": "ACH",
+      "meetsTarget": false,
+      "complianceGap": true,
+      "impact": 5,
+      "likelihood": 4,
+      "effort": 3,
+      "riskScore": 10,
+      "impactDefault": 5,
+      "likelihoodDefault": 4,
+      "effortDefault": 3,
+      "riskOverridden": false,
+      "recommendedAction": "Extend logging to OT sources including PLC events; ensure coverage supports timely detection.",
+      "actionEdited": false,
+      "engagementNotes": null,
+      "compensatingControl": null,
+      "igp": [
+        {
+          "statement": "Monitoring is based on a thorough understanding of network and information systems supporting your essential functions, techniques used by threat actors, and awareness of what logging and monitoring is required to detect events and incidents that could affect the operation of your essential functions.",
+          "status": "ACH",
+          "statusLabel": "Achieved",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Your monitoring data provides enough detail to promptly and reliably detect security events, incidents and support investigations. This is reviewed regularly and after a significant security event.",
+          "status": "ACH",
+          "statusLabel": "Achieved",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Extensive monitoring of user and system activity in relation to network and information systems that support your essential functions enables you to promptly detect policy violations, suspicious or undesirable user and system behaviour, deviations from normal or routine behaviour, or abnormalities indicative of adverse activity.",
+          "status": "ACH",
+          "statusLabel": "Achieved",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Your logging and monitoring capability includes host-based and network monitoring.",
+          "status": "ACH",
+          "statusLabel": "Achieved",
+          "compensatingControl": null
+        },
+        {
+          "statement": "All new network and information systems supporting your essential functions are considered as potential logging and monitoring data sources to maintain a comprehensive monitoring capability.",
+          "status": "ACH",
+          "statusLabel": "Achieved",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Log datasets are synchronised including using an accurate common time source so that separate datasets can be correlated in appropriate ways.",
+          "status": "ACH",
+          "statusLabel": "Achieved",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You enrich log data with other network and information systems data to provide a more comprehensive picture of actions and behaviours.",
+          "status": "ACH",
+          "statusLabel": "Achieved",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Your monitoring tools make use of log data to pinpoint activity.",
+          "status": "ACH",
+          "statusLabel": "Achieved",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You regularly review the data sources and tools included in your logging and monitoring strategy to ensure it remains effective.",
+          "status": "ACH",
+          "statusLabel": "Achieved",
+          "compensatingControl": null
+        }
+      ],
+      "igpSummary": {
+        "ach": 9,
+        "par": 0,
+        "na": 0,
+        "notmet": 0,
+        "total": 9,
+        "addressed": 9
+      },
+      "justification": null,
+      "evidence": "IT logs to SIEM; OT logging limited to firewall and jump-host; PLC event capture minimal.",
+      "justificationRequired": false,
+      "justificationMissing": false
+    },
+    {
+      "ref": "C1.b",
+      "objective": "C",
+      "principle": "C1",
+      "principleTitle": "Security Monitoring",
+      "name": "Securing Logs",
+      "newInV4": false,
+      "partiallyAchievedAvailable": true,
+      "rating": "PAR",
+      "ratingLabel": "Partially Achieved",
+      "profileTarget": "ACH",
+      "meetsTarget": false,
+      "complianceGap": true,
+      "impact": 4,
+      "likelihood": 3,
+      "effort": 2,
+      "riskScore": 6,
+      "impactDefault": 4,
+      "likelihoodDefault": 3,
+      "effortDefault": 2,
+      "riskOverridden": false,
+      "recommendedAction": "Centralise log collection; protect log integrity; hold logs for a suitable retention period.",
+      "actionEdited": false,
+      "engagementNotes": null,
+      "compensatingControl": null,
+      "igp": [
+        {
+          "statement": "Appropriate access to log data is limited to those users and systems with a business need.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "The logging architecture has mechanisms, policies, processes and procedures to ensure that it can protect itself from threats comparable to those that it is trying to identify. This includes protecting the function itself and the data within it.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Log data analysis and normalisation is only performed on copies of the log data keeping the master copy unaltered.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "All actions involving log data (for example, copying, deleting, modification, or even viewing) can be traced back to a unique user or system.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "The integrity of log data is protected, verified and any modification, including deletion, is detected and attributed.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        }
+      ],
+      "igpSummary": {
+        "ach": 0,
+        "par": 0,
+        "na": 0,
+        "notmet": 5,
+        "total": 5,
+        "addressed": 0
+      },
+      "justification": null,
+      "evidence": "Log retention 12 months for IT; OT log integrity protection inconsistent.",
+      "justificationRequired": false,
+      "justificationMissing": false
+    },
+    {
+      "ref": "C1.c",
+      "objective": "C",
+      "principle": "C1",
+      "principleTitle": "Security Monitoring",
+      "name": "Generating Alerts",
+      "newInV4": false,
+      "partiallyAchievedAvailable": true,
+      "rating": "NOT",
+      "ratingLabel": "Not Achieved",
+      "profileTarget": "ACH",
+      "meetsTarget": false,
+      "complianceGap": true,
+      "impact": 5,
+      "likelihood": 4,
+      "effort": 3,
+      "riskScore": 20,
+      "impactDefault": 5,
+      "likelihoodDefault": 4,
+      "effortDefault": 3,
+      "riskOverridden": false,
+      "recommendedAction": "Deploy OT-specific detection use cases; tune rules to reduce false positives; test alerting.",
+      "actionEdited": false,
+      "engagementNotes": null,
+      "compensatingControl": null,
+      "igp": [
+        {
+          "statement": "You easily detect the presence of Indicators of Compromise (IoCs) on network and information systems supporting your essential functions, such as known malicious command and control signatures, as well as abnormalities or behaviours indicative of adverse activity.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You apply all updates, new signatures and IoCs promptly.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Security alerts relating to all network and information systems supporting your essential functions are prioritised and this information is used to support incident management. Alerts are routinely enriched within network and information systems supporting your essential functions. The enrichment of these alerts is performed in almost real time and as part of the original alert.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Alerts and the underlying detections are regularly reviewed and tested to ensure they are generated promptly and reliably, and it is possible to distinguish genuine security incidents from false alarms.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Alerts and the underlying detection rules are customisable and tuned to reduce false positives as well as optimising responses.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Detections and alerting may use off the shelf tooling and rules as well as custom tooling or rules, or both.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You continuously monitor for user and system abnormalities indicative of adverse activity generating alerts based on the results of such monitoring.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Logs are monitored continuously in near real time.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        }
+      ],
+      "igpSummary": {
+        "ach": 0,
+        "par": 0,
+        "na": 0,
+        "notmet": 8,
+        "total": 8,
+        "addressed": 0
+      },
+      "justification": null,
+      "evidence": "Alerting rules tuned for IT estate; no OT-specific detection use cases deployed. Backlog DET-12.",
+      "justificationRequired": false,
+      "justificationMissing": false
+    },
+    {
+      "ref": "C1.d",
+      "objective": "C",
+      "principle": "C1",
+      "principleTitle": "Security Monitoring",
+      "name": "Triage of Security Alerts",
+      "newInV4": false,
+      "partiallyAchievedAvailable": true,
+      "rating": "NOT",
+      "ratingLabel": "Not Achieved",
+      "profileTarget": "ACH",
+      "meetsTarget": false,
+      "complianceGap": true,
+      "impact": 5,
+      "likelihood": 4,
+      "effort": 3,
+      "riskScore": 20,
+      "impactDefault": 5,
+      "likelihoodDefault": 4,
+      "effortDefault": 3,
+      "riskOverridden": false,
+      "recommendedAction": "Build OT alert context into triage runbooks; document triage; use findings to drive improvement.",
+      "actionEdited": false,
+      "engagementNotes": null,
+      "compensatingControl": null,
+      "igp": [
+        {
+          "statement": "You investigate and triage alerts from all security tools and take action.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You have created, made available and use when appropriate, Standard Operating Procedures (SOPs), playbooks or runbooks covering all plausible use cases. These are regularly reviewed to ensure they remain effective.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You categorise alerts and incidents by type and priority or severity level.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You document all triage related activities performed by monitoring and detection personnel and these are used to drive improvements.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Triage provides enough information for subsequent activities to be prioritised (for example, the containment of damaging malware).",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Your understanding of normal user and system behaviour, and threats, is sufficient for effective decision making within triage.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        }
+      ],
+      "igpSummary": {
+        "ach": 0,
+        "par": 0,
+        "na": 0,
+        "notmet": 6,
+        "total": 6,
+        "addressed": 0
+      },
+      "justification": null,
+      "evidence": "Triage runbooks do not cover OT alert context; analysts lack process-network familiarity.",
+      "justificationRequired": false,
+      "justificationMissing": false
+    },
+    {
+      "ref": "C1.e",
+      "objective": "C",
+      "principle": "C1",
+      "principleTitle": "Security Monitoring",
+      "name": "Personnel Skills for Monitoring and Detection",
+      "newInV4": false,
+      "partiallyAchievedAvailable": true,
+      "rating": "PAR",
+      "ratingLabel": "Partially Achieved",
+      "profileTarget": "PAR",
+      "meetsTarget": true,
+      "complianceGap": false,
+      "impact": 4,
+      "likelihood": 3,
+      "effort": 4,
+      "riskScore": 6,
+      "impactDefault": 4,
+      "likelihoodDefault": 3,
+      "effortDefault": 4,
+      "riskOverridden": false,
+      "recommendedAction": "Assess monitoring skills and tooling gaps; upskill or augment the SOC for OT competency.",
+      "actionEdited": false,
+      "engagementNotes": null,
+      "compensatingControl": null,
+      "igp": [
+        {
+          "statement": "You have monitoring and detection personnel who are responsible for the proactive and reactive analysis, investigation and reporting of monitoring alerts including both security and performance.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Monitoring and detection personnel have defined roles and skills that cover all parts of the monitoring and investigation process.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Monitoring and detection personnel follow policies, processes and procedures that address all governance reporting requirements, internal and external.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Monitoring and detection personnel are empowered to look beyond the fixed process to investigate and understand non-standard threats.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Monitoring and detection personnel are aware of the network and information systems and your essential functions, related assets and can identify and prioritise alerts and investigations that relate to them.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Monitoring and detection personnel drive and shape new log data collection and can make effective use of it.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Monitoring and detection personnel are capable of following all of the required workflows. Monitoring and detection personnel have a sufficient understanding of the operational context (for example, people, processes, network and information systems that support your essential function) to enhance the security monitoring function.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Monitoring and detection personnel deal with their workload and cases effectively as well as identifying areas for improvement.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        }
+      ],
+      "igpSummary": {
+        "ach": 0,
+        "par": 0,
+        "na": 0,
+        "notmet": 8,
+        "total": 8,
+        "addressed": 0
+      },
+      "justification": null,
+      "evidence": "SOC (outsourced) has IT skills; OT monitoring competency being built via joint exercises.",
+      "justificationRequired": false,
+      "justificationMissing": false
+    },
+    {
+      "ref": "C1.f",
+      "objective": "C",
+      "principle": "C1",
+      "principleTitle": "Security Monitoring",
+      "name": "Understanding User's and System's Behaviour, and Threat Intelligence",
+      "newInV4": true,
+      "partiallyAchievedAvailable": true,
+      "rating": "NOT",
+      "ratingLabel": "Not Achieved",
+      "profileTarget": "PAR",
+      "meetsTarget": false,
+      "complianceGap": true,
+      "impact": 4,
+      "likelihood": 4,
+      "effort": 4,
+      "riskScore": 16,
+      "impactDefault": 4,
+      "likelihoodDefault": 4,
+      "effortDefault": 4,
+      "riskOverridden": false,
+      "recommendedAction": "Baseline OT traffic behaviour; correlate threat intelligence to in-scope assets.",
+      "actionEdited": false,
+      "engagementNotes": null,
+      "compensatingControl": null,
+      "igp": [
+        {
+          "statement": "You track the effectiveness of your threat intelligence and actively share feedback on the usefulness of Indicators of Compromise (IoCs) and other intelligence with the threat community (for example, sector partners, threat intelligence providers and government agencies).",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "When using threat intelligence feeds, these have been selected using risk-based and threat informed decisions based on your business needs and sector.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You make relevant, reliable and actionable threat intelligence available to the necessary users and systems promptly.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You contextualise threat intelligence and link it to the why or how attacks take place for security monitoring.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You understand normal user and system abnormalities fully, to such an extent that searching for system abnormalities is an effective way of detecting adverse activity (for example, you fully understand which systems should and should not communicate and when).",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "The user and system abnormalities you monitor for are based on the nature of adverse activities likely to impact network and information systems supporting the operation of your essential functions.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "The user and system abnormalities indicative of adverse activity you use are regularly updated to reflect changes in network and information systems supporting your essential functions and current threat intelligence.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You possess the capability to share threat intelligence (for example, ways to effectively detect adversaries) with the threat community or defender community (sector partners, threat intelligence providers, government agencies) when required.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        }
+      ],
+      "igpSummary": {
+        "ach": 0,
+        "par": 0,
+        "na": 0,
+        "notmet": 8,
+        "total": 8,
+        "addressed": 0
+      },
+      "justification": null,
+      "evidence": "No behavioural baselining of OT traffic; threat intel not yet correlated to Marlow assets.",
+      "justificationRequired": false,
+      "justificationMissing": false
+    },
+    {
+      "ref": "C2.a",
+      "objective": "C",
+      "principle": "C2",
+      "principleTitle": "Threat Hunting",
+      "name": "Threat Hunting",
+      "newInV4": false,
+      "partiallyAchievedAvailable": true,
+      "rating": "NOT",
+      "ratingLabel": "Not Achieved",
+      "profileTarget": "NONE",
+      "meetsTarget": null,
+      "complianceGap": false,
+      "impact": 4,
+      "likelihood": 3,
+      "effort": 5,
+      "riskScore": 12,
+      "impactDefault": 4,
+      "likelihoodDefault": 3,
+      "effortDefault": 5,
+      "riskOverridden": false,
+      "recommendedAction": "Establish a threat-hunting programme for the OT environment; adopt a structured methodology; train hunters.",
+      "actionEdited": false,
+      "engagementNotes": null,
+      "compensatingControl": null,
+      "igp": [
+        {
+          "statement": "You understand the resources required to perform threat hunting and these are deployed as part of business as usual.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You deploy threat hunting resources at a frequency that matches the risks posed to network and information systems supporting your essential functions.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Your threat hunts follow pre-determined and documented methods (for example, hypothesis driven, data driven, entity driven) designed to identify adverse activity not detected by automated detections.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You turn threat hunts into automated detections and alerting where appropriate.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You routinely record details of previous threat hunts and post hunt activities. You use these to drive improvements in your threat hunting and security posture.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You have justified confidence in the effectiveness of your threat hunts and the threat hunting process is reviewed and updated to match the risks posed to network and information systems supporting your essential functions. You leverage automation to improve threat hunts where appropriate (for example, some stages of the threat hunting process are automated).",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Your threat hunts focus on the tactics, techniques and procedures (TTPs) of threats over atomic IoCs (for example, hashes, IP addresses, domain names and so on).",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        }
+      ],
+      "igpSummary": {
+        "ach": 0,
+        "par": 0,
+        "na": 0,
+        "notmet": 7,
+        "total": 7,
+        "addressed": 0
+      },
+      "justification": null,
+      "evidence": "No proactive threat hunting performed in the OT environment to date.",
+      "justificationRequired": false,
+      "justificationMissing": false
+    },
+    {
+      "ref": "D1.a",
+      "objective": "D",
+      "principle": "D1",
+      "principleTitle": "Response and Recovery Planning",
+      "name": "Response Plan",
+      "newInV4": false,
+      "partiallyAchievedAvailable": true,
+      "rating": "PAR",
+      "ratingLabel": "Partially Achieved",
+      "profileTarget": "ACH",
+      "meetsTarget": false,
+      "complianceGap": true,
+      "impact": 5,
+      "likelihood": 3,
+      "effort": 2,
+      "riskScore": 7.5,
+      "impactDefault": 5,
+      "likelihoodDefault": 3,
+      "effortDefault": 2,
+      "riskOverridden": false,
+      "recommendedAction": "Develop and test an incident response plan grounded in risk assessment; cover known and novel attack patterns; integrate supply-chain scenarios.",
+      "actionEdited": false,
+      "engagementNotes": null,
+      "compensatingControl": null,
+      "igp": [
+        {
+          "statement": "Your incident response plan is based on a clear and understanding of the security risks to network and information systems supporting your essential functions.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Your incident response plan is comprehensive (that is, it covers the complete life cycle of an incident, roles and responsibilities, and reporting) and covers likely impacts of both known attack patterns and of possible attacks, previously unseen.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Your incident response plan is documented and integrated with wider organisational business plans and supply chain response plans, as well as dependencies on supporting infrastructure (for example, power, cooling and so on).",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Your incident response plan is communicated and understood by the business areas involved with the operation of your essential functions.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        }
+      ],
+      "igpSummary": {
+        "ach": 0,
+        "par": 0,
+        "na": 0,
+        "notmet": 4,
+        "total": 4,
+        "addressed": 0
+      },
+      "justification": null,
+      "evidence": "IR plan exists and references OT; supply-chain incident scenarios not yet incorporated.",
+      "justificationRequired": false,
+      "justificationMissing": false
+    },
+    {
+      "ref": "D1.b",
+      "objective": "D",
+      "principle": "D1",
+      "principleTitle": "Response and Recovery Planning",
+      "name": "Response and Recovery Capability",
+      "newInV4": false,
+      "partiallyAchievedAvailable": false,
+      "rating": "NOT",
+      "ratingLabel": "Not Achieved",
+      "profileTarget": "ACH",
+      "meetsTarget": false,
+      "complianceGap": true,
+      "impact": 5,
+      "likelihood": 3,
+      "effort": 3,
+      "riskScore": 15,
+      "impactDefault": 5,
+      "likelihoodDefault": 3,
+      "effortDefault": 3,
+      "riskOverridden": false,
+      "recommendedAction": "Confirm response resources and decision authority; duplicate key roles; test back-up activation; retain external IR support on standby.",
+      "actionEdited": false,
+      "engagementNotes": null,
+      "compensatingControl": null,
+      "igp": [
+        {
+          "statement": "You understand the resources that will likely be needed to carry out any required response activities, and arrangements are in place to make these resources available.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You understand the types of information that will likely be needed to inform response decisions and arrangements are in place to make this information available.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Your response team members have the skills and knowledge required to decide on the response actions necessary to limit harm, and the authority to carry them out.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Key roles are duplicated and operational delivery knowledge is shared with all individuals involved in the operations and recovery of the essential functions.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Back-up mechanisms are available that can be readily activated to allow continued operation of your essential functions, although possibly at a reduced level, if primary network and information systems fail or are unavailable.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Arrangements exist to augment your organisation’s incident response capabilities with external support if necessary (for example, specialist cyber incident responders).",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        }
+      ],
+      "igpSummary": {
+        "ach": 0,
+        "par": 0,
+        "na": 0,
+        "notmet": 6,
+        "total": 6,
+        "addressed": 0
+      },
+      "justification": null,
+      "evidence": "Retainer with external IR provider in place, but OT-specific response playbook and back-up activation procedures are not yet defined; capability cannot yet be evidenced end-to-end.",
+      "justificationRequired": false,
+      "justificationMissing": false
+    },
+    {
+      "ref": "D1.c",
+      "objective": "D",
+      "principle": "D1",
+      "principleTitle": "Response and Recovery Planning",
+      "name": "Testing and Exercising",
+      "newInV4": false,
+      "partiallyAchievedAvailable": false,
+      "rating": "NOT",
+      "ratingLabel": "Not Achieved",
+      "profileTarget": "ACH",
+      "meetsTarget": false,
+      "complianceGap": true,
+      "impact": 4,
+      "likelihood": 2,
+      "effort": 2,
+      "riskScore": 8,
+      "impactDefault": 4,
+      "likelihoodDefault": 2,
+      "effortDefault": 2,
+      "riskOverridden": false,
+      "recommendedAction": "Run regular exercises drawing on threat intelligence and past incidents; test the full response cycle including restoration; feed findings into lessons learned.",
+      "actionEdited": false,
+      "engagementNotes": null,
+      "compensatingControl": null,
+      "igp": [
+        {
+          "statement": "Exercise scenarios are based on incidents experienced by your and other organisations or are composed using experience or threat intelligence.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Exercise scenarios are documented, regularly reviewed and validated.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Exercises are routinely run, with the findings documented and used to refine incident response plans and protective security, in line with the lessons learned.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Exercises test all parts of your response cycle relating to your essential functions (for example, restoration of normal functions levels).",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        }
+      ],
+      "igpSummary": {
+        "ach": 0,
+        "par": 0,
+        "na": 0,
+        "notmet": 4,
+        "total": 4,
+        "addressed": 0
+      },
+      "justification": null,
+      "evidence": "Tabletop exercises run for IT scenarios only; no OT/process-disruption exercise conducted.",
+      "justificationRequired": false,
+      "justificationMissing": false
+    },
+    {
+      "ref": "D2.a",
+      "objective": "D",
+      "principle": "D2",
+      "principleTitle": "Lessons Learned",
+      "name": "Post Incident Analysis",
+      "newInV4": false,
+      "partiallyAchievedAvailable": false,
+      "rating": "NAP",
+      "ratingLabel": "Not Applicable",
+      "profileTarget": "ACH",
+      "meetsTarget": true,
+      "complianceGap": false,
+      "impact": 4,
+      "likelihood": 2,
+      "effort": 2,
+      "riskScore": null,
+      "impactDefault": 4,
+      "likelihoodDefault": 2,
+      "effortDefault": 2,
+      "riskOverridden": false,
+      "recommendedAction": "Implement post-incident analysis covering organisational, technical and human factors; consider plausible alternatives; make incident data available to analysts.",
+      "actionEdited": false,
+      "engagementNotes": null,
+      "compensatingControl": null,
+      "igp": [
+        {
+          "statement": "Post incident analysis is conducted routinely as a key part of your lessons learned activities following an incident.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Your post incident analysis is comprehensive, considering organisational factors (for example, policies, processes and procedures), technical factors (for example, system design, vulnerabilities), human factors (for example, training, security culture) and any changes to threat.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "All relevant incident data is made available to the analysis team to perform post incident analysis.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Your analysis considers what could have happened under plausible, alternative circumstances (for example, ‘what if’ / ’if only’ scenarios).",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        }
+      ],
+      "igpSummary": {
+        "ach": 0,
+        "par": 0,
+        "na": 0,
+        "notmet": 4,
+        "total": 4,
+        "addressed": 0
+      },
+      "justification": "Exemption: this contributing outcome is declared not applicable for the current assessment period only.\nJustification: no cyber security incidents affecting the Marlow essential function have occurred since the environment entered scope, so there is no post-incident analysis to evidence. This is a point-in-time position, not a permanent exemption.\nNote: the analysis capability itself is defined in the IR plan (see D1.a) and will be evidenced against the next qualifying incident or exercise.",
+      "evidence": null,
+      "justificationRequired": true,
+      "justificationMissing": false
+    },
+    {
+      "ref": "D2.b",
+      "objective": "D",
+      "principle": "D2",
+      "principleTitle": "Lessons Learned",
+      "name": "Using Incidents to Drive Improvements",
+      "newInV4": false,
+      "partiallyAchievedAvailable": false,
+      "rating": "ACH",
+      "ratingLabel": "Achieved",
+      "profileTarget": "ACH",
+      "meetsTarget": true,
+      "complianceGap": false,
+      "impact": 3,
+      "likelihood": 2,
+      "effort": 2,
+      "riskScore": null,
+      "impactDefault": 3,
+      "likelihoodDefault": 2,
+      "effortDefault": 2,
+      "riskOverridden": false,
+      "recommendedAction": "Create an improvement register including near misses; prioritise and track implementation; report to senior management; learn from sector incidents.",
+      "actionEdited": false,
+      "engagementNotes": null,
+      "compensatingControl": null,
+      "igp": [
+        {
+          "statement": "You have a documented incident review process or policy which ensures that lessons learned from each incident, including near misses, are identified, captured and acted upon.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Lessons learned cover issues with reporting, roles, governance, skills and organisational policies, processes and procedures as well as technical aspects of network and information systems.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "You use lessons learned to improve security measures, including updating and retesting response plans when necessary.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Security improvements identified as a result of lessons learned are prioritised, with the highest priority improvements completed promptly.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Analysis is fed to senior management and incorporated into risk management and continuous improvement.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Your organisation maximises the lessons learned by using the analysis in ‘what if’ or ’if only’ scenarios.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        },
+        {
+          "statement": "Your organisation learns from reported incidents in your sector and the wider national infrastructure.",
+          "status": "NONE",
+          "statusLabel": "Not met",
+          "compensatingControl": null
+        }
+      ],
+      "igpSummary": {
+        "ach": 0,
+        "par": 0,
+        "na": 0,
+        "notmet": 7,
+        "total": 7,
+        "addressed": 0
+      },
+      "justification": null,
+      "evidence": "Lessons-learned register LL-2026 reviewed; 3 of 3 actions from the Apr-2026 tabletop closed and verified.",
+      "justificationRequired": false,
+      "justificationMissing": false
+    }
+  ]
+}
